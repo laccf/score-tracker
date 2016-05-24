@@ -27,7 +27,7 @@ public class Match implements Serializable {
     @Id
     @GeneratedValue(generator = "id", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "id")
-    private Long id;
+    private Integer id;
 
     @OneToMany(targetEntity = Action.class)
     private List<Action> actions;
@@ -84,11 +84,11 @@ public class Match implements Serializable {
         this.teamHome = teamHome;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
