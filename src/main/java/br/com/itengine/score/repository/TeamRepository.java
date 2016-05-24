@@ -13,5 +13,6 @@ public interface TeamRepository extends CrudRepository<Team, Integer> {
 
     List<Team> findByName(String name);
     List<Team> findByNameIgnoreCase(String name);
+    List<Team> findAll();
 
 }

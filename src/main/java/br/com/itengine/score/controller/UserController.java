@@ -5,6 +5,7 @@ import br.com.itengine.score.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,10 +55,16 @@ public class UserController {
             return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
         }
     }
-
-
-
-
+    @RequestMapping(value="/{id}",method = RequestMethod.DELETE)
+    public ResponseEntity<User> delete(@PathVariable Integer id) {
+        if(userRepository.exists(id)){
+            User user = userRepository.findOne(id);
+            userRepository.delete(id);
+            return new ResponseEntity<User>(user, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<User>(new User(), HttpStatus.NOT_FOUND);
+        }
+    }
 
 
 }

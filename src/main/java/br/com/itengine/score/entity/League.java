@@ -24,7 +24,7 @@ public class League implements Serializable {
     @Id
     @GeneratedValue(generator = "id", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "id")
-    private Long id;
+    private Integer id;
 
     public League() {
 
@@ -70,11 +70,11 @@ public class League implements Serializable {
         this.logo = logo;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }
