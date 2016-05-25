@@ -10,26 +10,31 @@ public class User implements Serializable {
 
     private String password;
 
-    @OneToOne(optional = false, targetEntity = Role.class)
-    private Role role;
-
     private String phone;
 
     private String name;
-
     @Id
     @GeneratedValue(generator = "id", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "id")
     private Integer id;
 
-    @Basic
     private String email;
 
-    @Column(unique = true,nullable = false)
+    @Column(unique = true)
     private String username;
+
+    private Role role;
 
     public User() {
 
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getPassword() {
@@ -38,14 +43,6 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Role getRole() {
-        return this.role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public String getPhone() {

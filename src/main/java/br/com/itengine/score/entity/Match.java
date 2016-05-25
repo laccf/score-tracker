@@ -3,6 +3,7 @@ package br.com.itengine.score.entity;//
 //
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
@@ -12,16 +13,16 @@ public class Match implements Serializable {
     @ManyToOne(targetEntity = User.class)
     private User delegate;
 
-    @OneToOne(targetEntity = Team.class)
+    @ManyToOne(optional = false, targetEntity = Team.class)
     private Team teamVisitor;
 
-    private String isPlayed;
+    private boolean isPlayed;
 
-    private String dateOfMatch;
+    private Date dateOfMatch;
 
-    private String isPostponed;
+    private boolean isPostponed;
 
-    @OneToOne(targetEntity = Team.class)
+    @ManyToOne(optional = false, targetEntity = Team.class)
     private Team teamHome;
 
     @Id
@@ -29,7 +30,7 @@ public class Match implements Serializable {
     @SequenceGenerator(name = "id")
     private Integer id;
 
-    @OneToMany(targetEntity = Action.class)
+    @OneToMany(cascade = {CascadeType.ALL}, targetEntity = Action.class)
     private List<Action> actions;
 
     public Match() {
@@ -52,27 +53,27 @@ public class Match implements Serializable {
         this.teamVisitor = teamVisitor;
     }
 
-    public String getIsPlayed() {
+    public boolean isIsPlayed() {
         return this.isPlayed;
     }
 
-    public void setIsPlayed(String isPlayed) {
+    public void setIsPlayed(boolean isPlayed) {
         this.isPlayed = isPlayed;
     }
 
-    public String getDateOfMatch() {
+    public Date getDateOfMatch() {
         return this.dateOfMatch;
     }
 
-    public void setDateOfMatch(String dateOfMatch) {
+    public void setDateOfMatch(Date dateOfMatch) {
         this.dateOfMatch = dateOfMatch;
     }
 
-    public String getIsPostponed() {
+    public boolean isIsPostponed() {
         return this.isPostponed;
     }
 
-    public void setIsPostponed(String isPostponed) {
+    public void setIsPostponed(boolean isPostponed) {
         this.isPostponed = isPostponed;
     }
 

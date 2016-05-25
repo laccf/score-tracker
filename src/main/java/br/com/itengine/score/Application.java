@@ -30,67 +30,44 @@ public class Application {
                                       PlayerRepository playerRepository,
                                       LeagueRepository leagueRepository,
                                       ActionRepository actionRepository,
-                                      ActionTypeRepository actionTypeRepository,
-                                      RoleRepository roleRepository,
                                       UserRepository userRepository
     ) {
 		return (args) -> {
 
-            Role root = new Role();
-            root.setName("ROOT");
-            Role leagueAdmin = new Role();
-            leagueAdmin.setName("LEAGUEADMIN");
-            Role teamAdmin = new Role();
-            teamAdmin.setName("TEAMADMIN");
-            Role delegate = new Role();
-            delegate.setName("DELEGATE");
 
-            root = roleRepository.save(root);
-            leagueAdmin = roleRepository.save(leagueAdmin);
-            teamAdmin = roleRepository.save(teamAdmin);
-            delegate = roleRepository.save(delegate);
-
-            ActionType goal = new ActionType();
-            goal.setName("GOAL");
-            ActionType faul = new ActionType();
-            goal.setName("FAUL");
-            ActionType asist = new ActionType();
-            goal.setName("ASIST");
-            ActionType suspension = new ActionType();
-            goal.setName("SUSPENSION");
-
-
-
-            goal = actionTypeRepository.save(goal);
-            faul = actionTypeRepository.save(faul);
-            asist = actionTypeRepository.save(asist);
-            suspension = actionTypeRepository.save(suspension);
 
             User userRoot = new User();
             User userLeague = new User();
             User userTeam = new User();
             User userDelegate = new User();
+            User userDelegateTwo = new User();
 
-            userRoot.setRole(root);
+
+            userRoot.setRole(Role.ROOT);
             userRoot.setUsername("userroot");
             userRoot.setPassword("pass");
 
-            userLeague.setRole(leagueAdmin);
+            userLeague.setRole(Role.LEAGUEADMIN);
             userLeague.setUsername("userleague");
             userLeague.setPassword("pass");
 
-            userTeam.setRole(teamAdmin);
+            userTeam.setRole(Role.TEAMADMIN);
             userTeam.setUsername("userteam");
             userTeam.setPassword("pass");
 
-            userDelegate.setRole(delegate);
+            userDelegate.setRole(Role.DELEGATE);
             userDelegate.setUsername("userdelegate");
             userDelegate.setPassword("pass");
+
+            userDelegateTwo.setRole(Role.DELEGATE);
+            userDelegateTwo.setUsername("userdelegatetwo");
+            userDelegateTwo.setPassword("pass");
 
             userRoot = userRepository.save(userRoot);
             userLeague = userRepository.save(userLeague);
             userTeam = userRepository.save(userTeam);
             userDelegate = userRepository.save(userDelegate);
+            userDelegateTwo = userRepository.save(userDelegateTwo);
 
 
             League leaguePernabucano = new League();
@@ -160,7 +137,51 @@ public class Application {
             teamRepository.save(teamSanta);
             teamRepository.save(teamNautico);
 			//TODO:implementar inicializacao
-		};
+
+            Match matchNauticoSport = new Match();
+            Match matchNauticoSanta = new Match();
+            Match matchSportSanta = new Match();
+            Match matchSportNautico = new Match();
+
+
+            String sourceDate = "2012-02-29";
+            String sourceDateTwo = "2012-03-20";
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = format.parse(sourceDate);
+            Date dateTwo = format.parse(sourceDateTwo);
+
+
+            matchNauticoSport.setTeamHome(teamNautico);
+            matchNauticoSport.setTeamVisitor(teamSport);
+            matchNauticoSport.setDelegate(userDelegate);
+            matchNauticoSport.setDateOfMatch(date);
+
+            matchNauticoSanta.setTeamHome(teamNautico);
+            matchNauticoSanta.setTeamVisitor(teamSanta);
+            matchNauticoSanta.setDelegate(userDelegate);
+            matchNauticoSanta.setDateOfMatch(date);
+
+            matchSportSanta.setTeamHome(teamSport);
+            matchSportSanta.setTeamVisitor(teamSanta);
+            matchSportSanta.setDelegate(userDelegateTwo);
+            matchSportSanta.setDateOfMatch(dateTwo);
+
+
+            matchSportNautico.setTeamHome(teamSport);
+            matchSportNautico.setTeamVisitor(teamNautico);
+            matchSportNautico.setDelegate(userDelegateTwo);
+            matchSportNautico.setDateOfMatch(dateTwo);
+            matchSportNautico.setIsPlayed(true);
+
+
+
+            matchRepository.save(matchNauticoSport);
+            matchRepository.save(matchNauticoSanta);
+            matchRepository.save(matchSportSanta);
+            matchRepository.save(matchSportNautico);
+
+
+        };
 	}
 
 }

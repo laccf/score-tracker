@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface MatchRepository extends CrudRepository<Match, Integer> {
     List<Match> findAll();
+    List<Match> findByIsPlayedTrue();
+
 }

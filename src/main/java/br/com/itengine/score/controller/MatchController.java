@@ -18,7 +18,7 @@ import java.util.List;
  * Created by thiag on 24/05/2016.
  */
 @RestController
-@RequestMapping(value = "/player")
+@RequestMapping("/match")
 public class MatchController {
 
 
@@ -30,6 +30,8 @@ public class MatchController {
     public ResponseEntity<List<Match>> findAll() {
         return new ResponseEntity<List<Match>>(matchRepository.findAll(), HttpStatus.OK);
     }
+
+
 
     @RequestMapping(value="",method = RequestMethod.PUT)
     public ResponseEntity<Match> update(Match match) {
@@ -68,5 +70,9 @@ public class MatchController {
             return new ResponseEntity<Match>(new Match(), HttpStatus.NOT_FOUND);
         }
     }
+    @RequestMapping(value="/isPlayed",method = RequestMethod.GET)
+    public ResponseEntity<List<Match>> getMatchByIsPlayedTrue() {
+        return new ResponseEntity<List<Match>>(matchRepository.findByIsPlayedTrue(), HttpStatus.OK);
 
+    }
 }

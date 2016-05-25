@@ -3,13 +3,15 @@ package br.com.itengine.score.entity;//
 //
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
 public class Action implements Serializable {
 
-    @OneToOne(targetEntity = ActionType.class)
     private ActionType actionType;
+
+    private Player player;
 
     @Id
     @GeneratedValue(generator = "id", strategy = GenerationType.SEQUENCE)
@@ -17,9 +19,6 @@ public class Action implements Serializable {
     private Long id;
 
     private String minute;
-
-    @OneToOne(targetEntity = Player.class)
-    private Player player;
 
     public Action() {
 
@@ -47,13 +46,5 @@ public class Action implements Serializable {
 
     public void setMinute(String minute) {
         this.minute = minute;
-    }
-
-    public Player getPlayer() {
-        return this.player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
     }
 }
