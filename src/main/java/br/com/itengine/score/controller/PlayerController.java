@@ -7,19 +7,16 @@ import br.com.itengine.score.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
  * Created by thiag on 24/05/2016.
  */
-
+@CrossOrigin(origins = "http://localhost:63342")
 @RestController
-@RequestMapping("/player")
+@RequestMapping("/players")
 public class PlayerController {
 
     @Autowired

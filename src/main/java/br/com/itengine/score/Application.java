@@ -17,23 +17,22 @@ import java.util.List;
 
 @SpringBootApplication
 public class Application {
-	private static final Logger log = LoggerFactory.getLogger(Application.class);
+    private static final Logger log = LoggerFactory.getLogger(Application.class);
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
 
-	@Bean
-	public CommandLineRunner loadData(MatchRepository matchRepository,
+    @Bean
+    public CommandLineRunner loadData(MatchRepository matchRepository,
                                       TeamRepository teamRepository,
                                       PlayerRepository playerRepository,
                                       LeagueRepository leagueRepository,
                                       ActionRepository actionRepository,
                                       UserRepository userRepository
     ) {
-		return (args) -> {
-
+        return (args) -> {
 
 
             User userRoot = new User();
@@ -46,22 +45,27 @@ public class Application {
             userRoot.setRole(Role.ROOT);
             userRoot.setUsername("userroot");
             userRoot.setPassword("pass");
+            userRoot.setName("Root");
 
             userLeague.setRole(Role.LEAGUEADMIN);
             userLeague.setUsername("userleague");
             userLeague.setPassword("pass");
+            userLeague.setName("League Admin");
 
             userTeam.setRole(Role.TEAMADMIN);
             userTeam.setUsername("userteam");
             userTeam.setPassword("pass");
+            userTeam.setName("Team Admin");
 
             userDelegate.setRole(Role.DELEGATE);
             userDelegate.setUsername("userdelegate");
             userDelegate.setPassword("pass");
+            userDelegate.setName("Delegate User");
 
             userDelegateTwo.setRole(Role.DELEGATE);
             userDelegateTwo.setUsername("userdelegatetwo");
             userDelegateTwo.setPassword("pass");
+            userDelegateTwo.setName("Delegate User 2");
 
             userRoot = userRepository.save(userRoot);
             userLeague = userRepository.save(userLeague);
@@ -76,13 +80,13 @@ public class Application {
             leaguePernabucano.setLeagueAdmin(userLeague);
             leaguePernabucano = leagueRepository.save(leaguePernabucano);
 
-			Team teamSport = new Team();
-			teamSport.setName("Sport Club");
+            Team teamSport = new Team();
+            teamSport.setName("Sport Club");
             teamSport.setLeague(leaguePernabucano);
             teamSport.setTeamAdmin(userTeam);
 
             Team teamSanta = new Team();
-			teamSanta.setName("Santa Cruz");
+            teamSanta.setName("Santa Cruz");
             teamSanta.setLeague(leaguePernabucano);
             teamSanta.setTeamAdmin(userTeam);
 
@@ -96,15 +100,15 @@ public class Application {
             teamNautico = teamRepository.save(teamNautico);
 
 
-            String[] sportNames = {"Durval Silva","Sandro Goiano","Alexandro Beti", "Tulio Vinicius","Thiago Almeida"};
-            String[] santaNames = {"Luiz Antonio","Anderson Pablo","Romeryto Lira","Gabi Alves","Pedro Hyvo","Erick Costa"};
-            String[] nauticoNames = {"Joao Arthur","Italo Almeida","Jorge Silva","Dalton Serey","Adalberto Cajueiro"};
+            String[] sportNames = {"Durval Silva", "Sandro Goiano", "Alexandro Beti", "Tulio Vinicius", "Thiago Almeida"};
+            String[] santaNames = {"Luiz Antonio", "Anderson Pablo", "Romeryto Lira", "Gabi Alves", "Pedro Hyvo", "Erick Costa"};
+            String[] nauticoNames = {"Joao Arthur", "Italo Almeida", "Jorge Silva", "Dalton Serey", "Adalberto Cajueiro"};
 
             List<Player> sportPlayers = new LinkedList<>();
             List<Player> santaPlayers = new LinkedList<>();
             List<Player> nauticoPlayers = new LinkedList<>();
 
-            for (int i = 0;i<sportNames.length;i++){
+            for (int i = 0; i < sportNames.length; i++) {
                 Player sportPlayer = new Player();
                 Player santaPlayer = new Player();
                 Player nauticoPlayer = new Player();
@@ -136,7 +140,7 @@ public class Application {
             teamRepository.save(teamSport);
             teamRepository.save(teamSanta);
             teamRepository.save(teamNautico);
-			//TODO:implementar inicializacao
+            //TODO:implementar inicializacao
 
             Match matchNauticoSport = new Match();
             Match matchNauticoSanta = new Match();
@@ -174,7 +178,6 @@ public class Application {
             matchSportNautico.setIsPlayed(true);
 
 
-
             matchRepository.save(matchNauticoSport);
             matchRepository.save(matchNauticoSanta);
             matchRepository.save(matchSportSanta);
@@ -182,6 +185,6 @@ public class Application {
 
 
         };
-	}
+    }
 
 }
