@@ -29,6 +29,10 @@ public class MatchController {
         return new ResponseEntity<List<Match>>(matchRepository.findAll(), HttpStatus.OK);
     }
 
+    @RequestMapping(value="/{id}",method = RequestMethod.GET)
+    public ResponseEntity<Match> findById(@PathVariable("id") Integer id) {
+        return new ResponseEntity<Match>(matchRepository.findById(id), HttpStatus.OK);
+    }
 
 
     @RequestMapping(value="",method = RequestMethod.PUT)

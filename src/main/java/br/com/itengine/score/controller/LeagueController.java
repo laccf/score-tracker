@@ -21,10 +21,14 @@ public class LeagueController {
     @Autowired
     LeagueRepository leagueRepository;
 
-
     @RequestMapping(value="",method = RequestMethod.GET)
     public ResponseEntity<List<League>> findAll() {
         return new ResponseEntity<List<League>>(leagueRepository.findAll(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/{id}",method = RequestMethod.GET)
+    public ResponseEntity<League> findById(@PathVariable("id") Integer id) {
+        return new ResponseEntity<League>(leagueRepository.findById(id), HttpStatus.OK);
     }
 
     @RequestMapping(value="",method = RequestMethod.PUT)

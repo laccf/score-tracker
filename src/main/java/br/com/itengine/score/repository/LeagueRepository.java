@@ -11,4 +11,5 @@ import java.util.List;
 public interface LeagueRepository extends CrudRepository<League,Integer> {
 
     List<League> findAll();
+    League findById(Integer id);
 }

@@ -2,6 +2,8 @@ package br.com.itengine.score.controller;
 
 import br.com.itengine.score.entity.User;
 import br.com.itengine.score.repository.UserRepository;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

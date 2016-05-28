@@ -13,6 +13,6 @@ public interface PlayerRepository  extends CrudRepository<Player, Integer> {
     List<Player> findByName(String name);
     List<Player> findAll();
     List<Player> findByNameAndLastNameIgnoreCase(String name, String lastName);
-
+    Player findById(Integer id);
 
 }

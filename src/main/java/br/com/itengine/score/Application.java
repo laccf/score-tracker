@@ -46,26 +46,36 @@ public class Application {
             userRoot.setUsername("userroot");
             userRoot.setPassword("pass");
             userRoot.setName("Root");
+            userRoot.setEmail("email@root.com");
+            userRoot.setPhone("33333331");
 
             userLeague.setRole(Role.LEAGUEADMIN);
             userLeague.setUsername("userleague");
             userLeague.setPassword("pass");
             userLeague.setName("League Admin");
+            userLeague.setEmail("email@league.com");
+            userLeague.setPhone("33333332");
 
             userTeam.setRole(Role.TEAMADMIN);
             userTeam.setUsername("userteam");
             userTeam.setPassword("pass");
             userTeam.setName("Team Admin");
+            userTeam.setEmail("email@team.com");
+            userTeam.setPhone("33333333");
 
             userDelegate.setRole(Role.DELEGATE);
             userDelegate.setUsername("userdelegate");
             userDelegate.setPassword("pass");
             userDelegate.setName("Delegate User");
+            userDelegate.setEmail("email@delegate1.com");
+            userDelegate.setPhone("33333334");
 
             userDelegateTwo.setRole(Role.DELEGATE);
             userDelegateTwo.setUsername("userdelegatetwo");
             userDelegateTwo.setPassword("pass");
             userDelegateTwo.setName("Delegate User 2");
+            userDelegateTwo.setEmail("email@delegate2.com");
+            userDelegateTwo.setPhone("3333335");
 
             userRoot = userRepository.save(userRoot);
             userLeague = userRepository.save(userLeague);

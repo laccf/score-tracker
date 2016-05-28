@@ -28,6 +28,11 @@ public class PlayerController {
         return new ResponseEntity<List<Player>>(playerRepository.findAll(), HttpStatus.OK);
     }
 
+    @RequestMapping(value="/{id}",method = RequestMethod.GET)
+    public ResponseEntity<Player> findById(@PathVariable("id") Integer id) {
+        return new ResponseEntity<Player>(playerRepository.findById(id), HttpStatus.OK);
+    }
+
     @RequestMapping(value="",method = RequestMethod.PUT)
     public ResponseEntity<Player> update(Player player) {
         if(playerRepository.exists(player.getId())){

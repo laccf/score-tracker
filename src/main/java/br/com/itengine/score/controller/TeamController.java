@@ -29,6 +29,11 @@ public class TeamController {
         return new ResponseEntity<List<Team>>(teamRepository.findAll(), HttpStatus.OK);
     }
 
+    @RequestMapping(value="/{id}",method = RequestMethod.GET)
+    public ResponseEntity<Team> findById(@PathVariable("id") Integer id) {
+        return new ResponseEntity<Team>(teamRepository.findById(id), HttpStatus.OK);
+    }
+
     @RequestMapping(value="",method = RequestMethod.PUT)
     public ResponseEntity<Team> update(Team team) {
         if(teamRepository.exists(team.getId())){
