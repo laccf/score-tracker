@@ -16,12 +16,30 @@ public class Action implements Serializable {
     @Id
     @GeneratedValue(generator = "id", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "id")
-    private Long id;
+    private Integer id;
+
+    private boolean isDeleted;
 
     private String minute;
 
     public Action() {
 
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public ActionType getActionType() {
@@ -32,11 +50,11 @@ public class Action implements Serializable {
         this.actionType = actionType;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

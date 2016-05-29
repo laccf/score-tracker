@@ -18,7 +18,12 @@ public class Match implements Serializable {
 
     private boolean isPlayed;
 
+    private boolean isDeleted;
+
     private Date dateOfMatch;
+
+    @ManyToOne(optional = false, targetEntity = League.class)
+    private League league;
 
     private boolean isPostponed;
 
@@ -35,6 +40,38 @@ public class Match implements Serializable {
 
     public Match() {
 
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public boolean isPlayed() {
+        return isPlayed;
+    }
+
+    public void setPlayed(boolean played) {
+        isPlayed = played;
+    }
+
+    public League getLeague() {
+        return league;
+    }
+
+    public void setLeague(League league) {
+        this.league = league;
+    }
+
+    public boolean isPostponed() {
+        return isPostponed;
+    }
+
+    public void setPostponed(boolean postponed) {
+        isPostponed = postponed;
     }
 
     public User getDelegate() {
