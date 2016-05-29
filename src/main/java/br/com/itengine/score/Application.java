@@ -199,6 +199,47 @@ public class Application {
             matchRepository.save(matchSportNautico);
 
 
+            //Actions
+            Action action1 = new Action();
+            Action action2 = new Action();
+            Action action3 = new Action();
+            Action action4 = new Action();
+            Action action5 = new Action();
+
+            action1.setPlayer(teamNautico.getPlayers().get(0));
+            action1.setMinute(10);
+            action1.setActionType(ActionType.GOAL);
+
+            action2.setPlayer(teamNautico.getPlayers().get(2));
+            action2.setMinute(15);
+            action2.setActionType(ActionType.GOAL);
+
+            action3.setPlayer(teamNautico.getPlayers().get(1));
+            action3.setMinute(20);
+            action3.setActionType(ActionType.FAUL);
+
+            action4.setPlayer(teamNautico.getPlayers().get(2));
+            action4.setMinute(5);
+            action4.setActionType(ActionType.GOAL);
+
+            action5.setPlayer(teamNautico.getPlayers().get(0));
+            action5.setMinute(44);
+            action5.setActionType(ActionType.GOAL);
+
+            action1 = actionRepository.save(action1);
+            action2 = actionRepository.save(action2);
+            action3 = actionRepository.save(action3);
+            action4 = actionRepository.save(action4);
+            action5 = actionRepository.save(action5);
+
+            matchNauticoSport.setActions(new LinkedList<Action>());
+
+            matchNauticoSport.getActions().add(action1);
+            matchNauticoSport.getActions().add(action2);
+            matchNauticoSport.getActions().add(action3);
+            matchNauticoSport.getActions().add(action4);
+            matchNauticoSport.getActions().add(action5);
+            matchRepository.save(matchNauticoSport);
 
 
         };
