@@ -147,7 +147,9 @@ public class Application {
             teamSanta.setPlayers(santaPlayers);
             teamNautico.setPlayers(nauticoPlayers);
 
+            teamSport.setDeleted(true);
             teamRepository.save(teamSport);
+
             teamRepository.save(teamSanta);
             teamRepository.save(teamNautico);
             //TODO:implementar inicializacao
@@ -168,22 +170,25 @@ public class Application {
             matchNauticoSport.setTeamHome(teamNautico);
             matchNauticoSport.setTeamVisitor(teamSport);
             matchNauticoSport.setDelegate(userDelegate);
+            matchNauticoSport.setLeague(leaguePernabucano);
             matchNauticoSport.setDateOfMatch(date);
 
             matchNauticoSanta.setTeamHome(teamNautico);
             matchNauticoSanta.setTeamVisitor(teamSanta);
             matchNauticoSanta.setDelegate(userDelegate);
+            matchNauticoSanta.setLeague(leaguePernabucano);
             matchNauticoSanta.setDateOfMatch(date);
 
             matchSportSanta.setTeamHome(teamSport);
             matchSportSanta.setTeamVisitor(teamSanta);
             matchSportSanta.setDelegate(userDelegateTwo);
+            matchSportSanta.setLeague(leaguePernabucano);
             matchSportSanta.setDateOfMatch(dateTwo);
-
 
             matchSportNautico.setTeamHome(teamSport);
             matchSportNautico.setTeamVisitor(teamNautico);
             matchSportNautico.setDelegate(userDelegateTwo);
+            matchSportNautico.setLeague(leaguePernabucano);
             matchSportNautico.setDateOfMatch(dateTwo);
             matchSportNautico.setIsPlayed(true);
 
@@ -192,6 +197,8 @@ public class Application {
             matchRepository.save(matchNauticoSanta);
             matchRepository.save(matchSportSanta);
             matchRepository.save(matchSportNautico);
+
+
 
 
         };

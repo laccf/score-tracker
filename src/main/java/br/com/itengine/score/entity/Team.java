@@ -31,7 +31,7 @@ public class Team implements Serializable {
     @JsonBackReference
     private League league;
 
-    @Column(unique = true)
+    private boolean isDeleted;
     private String name;
 
     private String logo;
@@ -46,6 +46,14 @@ public class Team implements Serializable {
 
     public Team() {
 
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public String getAddress() {

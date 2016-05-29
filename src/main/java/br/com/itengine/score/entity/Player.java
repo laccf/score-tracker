@@ -22,11 +22,14 @@ public class Player implements Serializable {
     @Basic
     private String image;
 
+    private boolean isDeleted;
+
+
     @Basic
     private String name;
 
     @Basic
-    private String weight;
+    private Integer weight;
 
     @Id
     @GeneratedValue(generator = "id", strategy = GenerationType.SEQUENCE)
@@ -38,10 +41,18 @@ public class Player implements Serializable {
     private Team team;
 
     @Basic
-    private String height;
+    private Integer height;
 
     public Player() {
 
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public String getLastName() {
@@ -68,11 +79,11 @@ public class Player implements Serializable {
         this.name = name;
     }
 
-    public String getWeight() {
+    public Integer getWeight() {
         return this.weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
@@ -92,11 +103,11 @@ public class Player implements Serializable {
         this.team = team;
     }
 
-    public String getHeight() {
+    public Integer getHeight() {
         return this.height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(Integer height) {
         this.height = height;
     }
 }

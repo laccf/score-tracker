@@ -26,7 +26,7 @@ public class TeamController {
 
     @RequestMapping(value="",method = RequestMethod.GET)
     public ResponseEntity<List<Team>> findAll() {
-        return new ResponseEntity<List<Team>>(teamRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<List<Team>>(teamRepository.findByIsDeletedFalse(), HttpStatus.OK);
     }
 
     @RequestMapping(value="/{id}",method = RequestMethod.GET)

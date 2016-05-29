@@ -20,13 +20,22 @@ public class User implements Serializable {
 
     private String email;
 
-    @Column(unique = true)
+    private boolean isDeleted;
+
     private String username;
 
     private Role role;
 
     public User() {
 
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public Role getRole() {
