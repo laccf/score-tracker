@@ -19,16 +19,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
+/*@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")*/
 public class Team implements Serializable {
 
     private String address;
 
     @OneToMany(targetEntity = Player.class, mappedBy = "team")
-    @JsonManagedReference
+    @JsonBackReference
     private List<Player> players;
 
     @ManyToOne(optional = false, targetEntity = League.class)
-    @JsonBackReference
+    @JsonManagedReference
     private League league;
 
     private boolean isDeleted;
