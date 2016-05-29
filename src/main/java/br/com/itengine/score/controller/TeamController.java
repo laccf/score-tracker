@@ -25,7 +25,7 @@ public class TeamController {
 
 
     @RequestMapping(value="",method = RequestMethod.GET)
-    public ResponseEntity<List<Team>> findAll() {
+    public ResponseEntity<List<Team>> findByIsDeletedFalse() {
         return new ResponseEntity<List<Team>>(teamRepository.findByIsDeletedFalse(), HttpStatus.OK);
     }
 
