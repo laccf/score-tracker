@@ -45,7 +45,7 @@ public class MatchController {
     }
 
     @RequestMapping(value="",method = RequestMethod.POST)
-    public ResponseEntity<Match> create(Match match) {
+    public ResponseEntity<Match> create(@RequestBody Match match) {
         if(!matchRepository.exists(match.getId())){
             return new ResponseEntity<Match>(matchRepository.save(match), HttpStatus.CREATED);
         }else{

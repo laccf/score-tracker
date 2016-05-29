@@ -1,6 +1,7 @@
 package br.com.itengine.score.repository;
 
 import br.com.itengine.score.entity.Player;
+import br.com.itengine.score.entity.Team;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -14,5 +15,6 @@ public interface PlayerRepository  extends CrudRepository<Player, Integer> {
     List<Player> findAll();
     List<Player> findByNameAndLastNameIgnoreCase(String name, String lastName);
     Player findById(Integer id);
+    Team findTeamById(Integer id);
 
 }

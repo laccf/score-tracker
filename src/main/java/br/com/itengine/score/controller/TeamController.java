@@ -44,7 +44,7 @@ public class TeamController {
     }
 
     @RequestMapping(value="",method = RequestMethod.POST)
-    public ResponseEntity<Team> create(Team team) {
+    public ResponseEntity<Team> create(@RequestBody Team team) {
         if(!teamRepository.exists(team.getId())){
             return new ResponseEntity<Team>(teamRepository.save(team), HttpStatus.CREATED);
         }else{
