@@ -3,6 +3,7 @@ package br.com.itengine.score.entity;//
 //
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
+/*@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")*/
 public class Player implements Serializable {
 
     @Basic
@@ -37,7 +39,7 @@ public class Player implements Serializable {
     private Integer id;
 
     @ManyToOne( targetEntity = Team.class)
-    @JsonBackReference
+    @JsonManagedReference
     private Team team;
 
     @Basic

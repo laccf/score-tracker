@@ -23,6 +23,10 @@ public class LeagueController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<League>> findAll() {
+
+        leagueRepository.findAll()
+
+
         return new ResponseEntity<List<League>>(leagueRepository.findAll(), HttpStatus.OK);
     }
 

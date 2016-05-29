@@ -94,16 +94,19 @@ public class Application {
             teamSport.setName("Sport Club");
             teamSport.setLeague(leaguePernabucano);
             teamSport.setTeamAdmin(userTeam);
+            teamSport.setAddress("Ilha do Retiro");
 
             Team teamSanta = new Team();
             teamSanta.setName("Santa Cruz");
             teamSanta.setLeague(leaguePernabucano);
             teamSanta.setTeamAdmin(userTeam);
+            teamSanta.setAddress("Arruda");
 
             Team teamNautico = new Team();
             teamNautico.setName("Nautico");
             teamNautico.setLeague(leaguePernabucano);
             teamNautico.setTeamAdmin(userTeam);
+            teamNautico.setAddress("Aflitos");
 
             teamSport = teamRepository.save(teamSport);
             teamSanta = teamRepository.save(teamSanta);
@@ -126,15 +129,21 @@ public class Application {
                 sportPlayer.setName(sportNames[i].split(" ")[0]);
                 sportPlayer.setLastName(sportNames[i].split(" ")[1]);
                 sportPlayer.setTeam(teamSport);
+                sportPlayer.setWeight(80);
+                sportPlayer.setHeight(170);
+
 
                 santaPlayer.setName(santaNames[i].split(" ")[0]);
                 santaPlayer.setLastName(santaNames[i].split(" ")[1]);
                 santaPlayer.setTeam(teamSanta);
+                santaPlayer.setWeight(80);
+                santaPlayer.setHeight(170);
 
                 nauticoPlayer.setName(nauticoNames[i].split(" ")[0]);
                 nauticoPlayer.setLastName(nauticoNames[i].split(" ")[1]);
                 nauticoPlayer.setTeam(teamNautico);
-
+                nauticoPlayer.setWeight(80);
+                nauticoPlayer.setHeight(170);
 
                 sportPlayer = playerRepository.save(sportPlayer);
                 santaPlayer = playerRepository.save(santaPlayer);
