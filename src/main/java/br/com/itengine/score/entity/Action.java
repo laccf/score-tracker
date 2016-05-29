@@ -11,6 +11,7 @@ public class Action implements Serializable {
 
     private ActionType actionType;
 
+    @ManyToOne( targetEntity = Player.class)
     private Player player;
 
     @Id
@@ -20,7 +21,7 @@ public class Action implements Serializable {
 
     private boolean isDeleted;
 
-    private String minute;
+    private Integer minute;
 
     public Action() {
 
@@ -58,11 +59,11 @@ public class Action implements Serializable {
         this.id = id;
     }
 
-    public String getMinute() {
+    public Integer getMinute() {
         return this.minute;
     }
 
-    public void setMinute(String minute) {
+    public void setMinute(Integer minute) {
         this.minute = minute;
     }
 }
