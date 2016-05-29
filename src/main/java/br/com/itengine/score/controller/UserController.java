@@ -1,5 +1,6 @@
 package br.com.itengine.score.controller;
 
+import br.com.itengine.score.entity.Role;
 import br.com.itengine.score.entity.User;
 import br.com.itengine.score.repository.UserRepository;
 import org.hibernate.annotations.Cascade;
@@ -31,6 +32,11 @@ public class UserController {
     @RequestMapping(value="/{id}",method = RequestMethod.GET)
     public ResponseEntity<User> findById(@PathVariable("id") Integer id) {
         return new ResponseEntity<User>(userRepository.findById(id), HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/role",method = RequestMethod.GET)
+    public ResponseEntity<List<User>> findByRole(@RequestParam Role role) {
+        return new ResponseEntity<List<User>>(userRepository.findByRole(role), HttpStatus.OK);
     }
 
     @RequestMapping(value="",method = RequestMethod.PUT)

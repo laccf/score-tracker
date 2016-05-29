@@ -34,7 +34,7 @@ public class PlayerController {
     }
 
     @RequestMapping(value="",method = RequestMethod.PUT)
-    public ResponseEntity<Player> update(Player player) {
+    public ResponseEntity<Player> update(@RequestBody Player player) {
         if(playerRepository.exists(player.getId())){
             return new ResponseEntity<Player>(playerRepository.save(player), HttpStatus.OK);
         }else{
@@ -43,8 +43,8 @@ public class PlayerController {
     }
 
     @RequestMapping(value="",method = RequestMethod.POST)
-    public ResponseEntity<Player> create(Player player) {
-        if(!playerRepository.exists(player.getId())){
+    public ResponseEntity<Player> create(@RequestBody Player player) {
+        if(null == player.getId()){
             return new ResponseEntity<Player>(playerRepository.save(player), HttpStatus.CREATED);
         }else{
             return new ResponseEntity<Player>(player, HttpStatus.CONFLICT);

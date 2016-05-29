@@ -30,10 +30,10 @@ public class Player implements Serializable {
 
     @Id
     @GeneratedValue(generator = "id", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "id")
+    @SequenceGenerator(name = "id", sequenceName = "id")
     private Integer id;
 
-    @ManyToOne(optional = false, targetEntity = Team.class)
+    @ManyToOne( targetEntity = Team.class)
     @JsonBackReference
     private Team team;
 
