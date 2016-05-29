@@ -1,10 +1,13 @@
 package br.com.itengine.score.controller;
 
+import br.com.itengine.score.domain.LeagueInfo;
 import br.com.itengine.score.domain.Report;
+import br.com.itengine.score.domain.TeamInfo;
 import br.com.itengine.score.domain.TeamReport;
 import br.com.itengine.score.entity.*;
 import br.com.itengine.score.repository.LeagueRepository;
 import br.com.itengine.score.repository.MatchRepository;
+import br.com.itengine.score.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +28,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/report")
 public class ReportController {
 
+
+    @Autowired
+    TeamRepository teamRepository;
+
     @Autowired
     MatchRepository matchRepository;
     @Autowired
@@ -34,58 +41,52 @@ public class ReportController {
     public List<Report> findAll() {
         List<League> leagues = leagueRepository.findByIsDeletedFalse();
         List<Report> reports = new LinkedList<>();
-        for (League league:leagues) {
-            List<Match> matchs = matchRepository.findByLeague(league);
-            Map<Team, List<Action> > teamActions = new HashMap<>();
-            Report report = null;
-            for (Match match: matchs) {
-                report = new Report();
-                report.setLeague(league);
-                report.setTeams(new LinkedList<TeamReport>());
 
-                if(teamActions.containsKey(match.getTeamHome())){
-                    teamActions.get(match.getTeamHome()).addAll(returnActionsByTeam(match,match.getTeamHome()));
-                }else{
-                    teamActions.put(match.getTeamHome(),new LinkedList<Action>());
-                }
+        for (League league: leagues) {
+            List<Action> actions = getActions(matchRepository.findByLeague(league));
+            List<Team> teams = teamRepository.findAll();
+            List<TeamReport> retorno = new LinkedList<>();
 
-                if(teamActions.containsKey(match.getTeamVisitor())){
-                    teamActions.get(match.getTeamVisitor()).addAll(returnActionsByTeam(match,match.getTeamVisitor()));
-                }else{
-                    teamActions.put(match.getTeamVisitor(),new LinkedList<Action>());
-                }
-                for (Team team: teamActions.keySet()) {
-                    Map<ActionType, Long> counts = teamActions.get(team).stream().collect(Collectors.groupingBy(e -> e.getActionType(), Collectors.counting()));
-
-                    TeamReport teamReport = new TeamReport();
-                    teamReport.setTeam(team);
-                    teamReport.setActions(counts);
-                    report.getTeams().add(teamReport);
-
-                }
+            for (Team team: teams ) {
+                retorno.add(getTeamReport(team,actions));
             }
+            Report report = new Report();
+            LeagueInfo leagueInfo = new LeagueInfo();
+            leagueInfo.setName(league.getName());
+            leagueInfo.setDate(league.getDate());
+            report.setLeague(leagueInfo);
+            report.setTeams(retorno);
             reports.add(report);
         }
         return reports;
     }
 
-    private List<Action> returnActionsByTeam(Match match, Team team) {
-        List<Action> actions = new LinkedList<>();
-        if (team.equals(match.getTeamHome())){
-            for (Action action : match.getActions()){
-                if(match.getTeamHome().getPlayers().contains(action.getPlayer())){
-                    actions.add(action);
-                }
-            }
-        }if(team.equals(match.getTeamVisitor())){
-            for (Action action : match.getActions()){
-                if(match.getTeamVisitor().getPlayers().contains(action.getPlayer())){
-                    actions.add(action);
-                }
-            }
+    private List<Action> getActions(List<Match> matchs){
+        List<Action> actions = new LinkedList<Action>();
+        for (Match match: matchs) {
+            actions.addAll(match.getActions());
         }
-        return  actions;
+        return actions;
     }
 
+    private TeamReport getTeamReport(Team team, List<Action> actions){
+        TeamReport teamReport = new TeamReport();
+        TeamInfo teamInfo = new TeamInfo();
+        teamInfo.setId(team.getId());
+        teamInfo.setName(team.getName());
+        teamReport.setTeam(teamInfo);
+        Map<ActionType, Integer> map = new HashMap<>();
+        map.put(ActionType.ASIST,0);
+        map.put(ActionType.FAUL,0);
+        map.put(ActionType.GOAL,0);
+        map.put(ActionType.SUSPENSION,0);
+        for (Action action: actions){
+            if(teamRepository.findByPlayersContaining(action.getPlayer()).getId() == team.getId()){
+                map.put(action.getActionType(),1+map.get(action.getActionType()));
+            }
+        }
+        teamReport.setActions(map);
+        return teamReport;
+    }
 
 }

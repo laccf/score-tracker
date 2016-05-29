@@ -10,26 +10,26 @@ import java.util.Map;
  * Created by thiag on 27/05/2016.
  */
 public class TeamReport {
-    Team team;
-    Map<ActionType, Long> actions;
+    TeamInfo team;
+    Map<ActionType, Integer> actions;
 
     public TeamReport() {
-        actions = new HashMap<ActionType, Long>();
+        actions = new HashMap<ActionType, Integer>();
     }
 
-    public Team getTeam() {
+    public TeamInfo getTeam() {
         return team;
     }
 
-    public void setTeam(Team team) {
+    public void setTeam(TeamInfo team) {
         this.team = team;
     }
 
-    public Map<ActionType, Long> getActions() {
+    public Map<ActionType, Integer> getActions() {
         return actions;
     }
 
-    public void setActions(Map<ActionType, Long> actions) {
+    public void setActions(Map<ActionType, Integer> actions) {
         this.actions = actions;
     }
 }

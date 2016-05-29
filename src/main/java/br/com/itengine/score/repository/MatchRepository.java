@@ -15,7 +15,5 @@ public interface MatchRepository extends CrudRepository<Match, Integer> {
     List<Match> findByIsPlayedTrue();
     Match findById(Integer id);
     List<Match> findByLeague(League league);
-    List<Match> findByLeagueAndTeamVisitor(League league,Team teamVisitor);
-    List<Match> findByLeagueAndTeamHome(League league,Team teamHome);
 
 }

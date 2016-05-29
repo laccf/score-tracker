@@ -9,18 +9,18 @@ import java.util.List;
  * Created by thiag on 27/05/2016.
  */
 public class Report {
-    League league;
+    LeagueInfo league;
     List<TeamReport> teams;
 
     public Report() {
         teams = new LinkedList<>();
     }
 
-    public League getLeague() {
+    public LeagueInfo getLeague() {
         return league;
     }
 
-    public void setLeague(League league) {
+    public void setLeague(LeagueInfo league) {
         this.league = league;
     }
 
