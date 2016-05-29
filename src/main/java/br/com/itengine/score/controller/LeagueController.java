@@ -41,7 +41,7 @@ public class LeagueController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<League> create(League league) {
+    public ResponseEntity<League> create(@RequestBody League league) {
         if (null == league.getId()) {
             return new ResponseEntity<League>(leagueRepository.save(league), HttpStatus.CREATED);
         } else {

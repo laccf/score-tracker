@@ -49,7 +49,7 @@ public class UserController {
     }
 
     @RequestMapping(value="",method = RequestMethod.POST)
-    public ResponseEntity<User> create(User user) {
+    public ResponseEntity<User> create(@RequestBody User user) {
         if(!userRepository.exists(user.getId())){
             return new ResponseEntity<User>(userRepository.save(user), HttpStatus.CREATED);
         }else{
