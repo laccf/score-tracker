@@ -10,44 +10,35 @@ import javax.persistence.*;
 @Entity
 public class Match implements Serializable {
 
+    @Id
+    @GeneratedValue(generator = "id", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "id")
+    private Integer id;
+
+    private boolean isPlayed;
+
+    private Date dateOfMatch;
+
+    private boolean isPostponed;
+
+
     @ManyToOne(targetEntity = User.class)
     private User delegate;
 
     @ManyToOne(optional = false, targetEntity = Team.class)
     private Team teamVisitor;
 
-    private boolean isPlayed;
-
-    private boolean isDeleted;
-
-    private Date dateOfMatch;
-
     @ManyToOne(optional = false, targetEntity = League.class)
     private League league;
 
-    private boolean isPostponed;
-
     @ManyToOne(optional = false, targetEntity = Team.class)
     private Team teamHome;
-
-    @Id
-    @GeneratedValue(generator = "id", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "id")
-    private Integer id;
 
     @OneToMany(cascade = {CascadeType.ALL}, targetEntity = Action.class)
     private List<Action> actions;
 
     public Match() {
 
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
     }
 
     public boolean isPlayed() {

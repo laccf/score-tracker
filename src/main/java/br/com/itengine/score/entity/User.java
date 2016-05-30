@@ -8,19 +8,18 @@ import javax.persistence.*;
 @Entity
 public class User implements Serializable {
 
-    private String password;
-
-    private String phone;
-
-    private String name;
     @Id
     @GeneratedValue(generator = "id", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "id")
     private Integer id;
 
-    private String email;
+    private String password;
 
-    private boolean isDeleted;
+    private String phone;
+
+    private String name;
+
+    private String email;
 
     private String username;
 
@@ -30,13 +29,6 @@ public class User implements Serializable {
 
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
 
     public Role getRole() {
         return role;

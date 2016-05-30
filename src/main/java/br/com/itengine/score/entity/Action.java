@@ -9,19 +9,17 @@ import javax.persistence.*;
 @Entity
 public class Action implements Serializable {
 
-    private ActionType actionType;
-
-    @ManyToOne( targetEntity = Player.class)
-    private Player player;
-
     @Id
     @GeneratedValue(generator = "id", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "id")
     private Integer id;
 
-    private boolean isDeleted;
-
     private Integer minute;
+
+    private ActionType actionType;
+
+    @ManyToOne( targetEntity = Player.class)
+    private Player player;
 
     public Action() {
 
@@ -33,14 +31,6 @@ public class Action implements Serializable {
 
     public void setPlayer(Player player) {
         this.player = player;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
     }
 
     public ActionType getActionType() {

@@ -155,8 +155,6 @@ public class Application {
             teamSport.setPlayers(sportPlayers);
             teamSanta.setPlayers(santaPlayers);
             teamNautico.setPlayers(nauticoPlayers);
-
-            teamSport.setDeleted(true);
             teamRepository.save(teamSport);
 
             teamRepository.save(teamSanta);

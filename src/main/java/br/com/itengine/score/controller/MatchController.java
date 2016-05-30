@@ -72,9 +72,4 @@ public class MatchController {
             return new ResponseEntity<Match>(new Match(), HttpStatus.NOT_FOUND);
         }
     }
-    @RequestMapping(value="/isPlayed",method = RequestMethod.GET)
-    public ResponseEntity<List<Match>> getMatchByIsPlayedTrue() {
-        return new ResponseEntity<List<Match>>(matchRepository.findByIsPlayedTrue(), HttpStatus.OK);
-
-    }
 }

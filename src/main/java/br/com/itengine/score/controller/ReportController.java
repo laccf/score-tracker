@@ -39,7 +39,7 @@ public class ReportController {
 
     @RequestMapping(value="",method = RequestMethod.GET)
     public List<Report> findAll() {
-        List<League> leagues = leagueRepository.findByIsDeletedFalse();
+        List<League> leagues = leagueRepository.findAll();
         List<Report> reports = new LinkedList<>();
 
         for (League league: leagues) {

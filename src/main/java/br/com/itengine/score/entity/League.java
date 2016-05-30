@@ -15,6 +15,15 @@ import javax.persistence.*;
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class League implements Serializable {
 
+    @Id
+    @GeneratedValue(generator = "id", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "id")
+    private Integer id;
+
+    private String name;
+
+    private String logo;
+
     private Integer date;
 
     @ManyToOne(targetEntity = User.class)
@@ -23,27 +32,6 @@ public class League implements Serializable {
     @OneToMany(targetEntity = Team.class, mappedBy = "league")
     @JsonBackReference
     private List<Team> teams;
-
-
-    private boolean isDeleted;
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
-
-    private String name;
-
-    private String logo;
-
-    @Id
-    @GeneratedValue(generator = "id", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "id")
-    private Integer id;
-
 
     public League() {
 

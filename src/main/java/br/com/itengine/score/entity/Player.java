@@ -18,32 +18,27 @@ import javax.persistence.SequenceGenerator;
 /*@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")*/
 public class Player implements Serializable {
 
-    @Basic
-    private String lastName;
-
-    @Basic
-    private String image;
-
-    private boolean isDeleted;
-
-
-    @Basic
-    private String name;
-
-    @Basic
-    private Integer weight;
-
     @Id
     @GeneratedValue(generator = "id", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "id", sequenceName = "id")
     private Integer id;
 
+    private Integer height;
+
+    private String lastName;
+
+    private String image;
+
+    private boolean isDeleted;
+
+    private String name;
+
+    private Integer weight;
+
+
     @ManyToOne( targetEntity = Team.class)
     @JsonManagedReference
     private Team team;
-
-    @Basic
-    private Integer height;
 
     public Player() {
 

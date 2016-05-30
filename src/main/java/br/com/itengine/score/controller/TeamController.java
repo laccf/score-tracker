@@ -1,7 +1,11 @@
 package br.com.itengine.score.controller;
 
 import br.com.itengine.score.entity.League;
+import br.com.itengine.score.entity.Match;
+import br.com.itengine.score.entity.Player;
 import br.com.itengine.score.entity.Team;
+import br.com.itengine.score.repository.MatchRepository;
+import br.com.itengine.score.repository.PlayerRepository;
 import br.com.itengine.score.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +18,7 @@ import java.util.List;
  * Created by thiag on 24/05/2016.
  */
 
-@CrossOrigin(origins = "http://localhost:63342")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/teams")
 public class TeamController {
@@ -23,10 +27,15 @@ public class TeamController {
     @Autowired
     TeamRepository teamRepository;
 
+    @Autowired
+    PlayerRepository playerRepository;
+
+    @Autowired
+    MatchRepository matchRepository;
 
     @RequestMapping(value="",method = RequestMethod.GET)
-    public ResponseEntity<List<Team>> findByIsDeletedFalse() {
-        return new ResponseEntity<List<Team>>(teamRepository.findByIsDeletedFalse(), HttpStatus.OK);
+    public ResponseEntity<List<Team>> findAll() {
+        return new ResponseEntity<List<Team>>(teamRepository.findAll(), HttpStatus.OK);
     }
 
     @RequestMapping(value="/{id}",method = RequestMethod.GET)
@@ -65,6 +74,15 @@ public class TeamController {
     public ResponseEntity<Team> delete(@PathVariable Integer id) {
         if(teamRepository.exists(id)){
             Team team = teamRepository.findOne(id);
+            List<Match> matches = matchRepository.findByTeamVisitorOrTeamHome(team,team);
+            for (Match match: matches ) {
+                matchRepository.delete(match);
+            }
+            for (Player player: team.getPlayers()
+                    ) {
+                playerRepository.delete(player);
+
+            }
             teamRepository.delete(team);
             return new ResponseEntity<Team>(team, HttpStatus.OK);
         }else{
