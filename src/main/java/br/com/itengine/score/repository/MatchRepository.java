@@ -1,5 +1,6 @@
 package br.com.itengine.score.repository;
 
+import br.com.itengine.score.entity.Action;
 import br.com.itengine.score.entity.League;
 import br.com.itengine.score.entity.Match;
 import br.com.itengine.score.entity.Team;
@@ -15,5 +16,6 @@ public interface MatchRepository extends CrudRepository<Match, Integer> {
     Match findById(Integer id);
     List<Match> findByLeague(League league);
     List<Match> findByTeamVisitorOrTeamHome(Team teamHome,Team teamVisitor);
+    Match findByActionsContaining(Action player);
 
 }

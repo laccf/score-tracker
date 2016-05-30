@@ -1,7 +1,11 @@
 package br.com.itengine.score;
 
-import br.com.itengine.score.entity.*;
-import br.com.itengine.score.repository.*;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -9,15 +13,25 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import br.com.itengine.score.entity.Action;
+import br.com.itengine.score.entity.ActionType;
+import br.com.itengine.score.entity.League;
+import br.com.itengine.score.entity.Match;
+import br.com.itengine.score.entity.Player;
+import br.com.itengine.score.entity.Role;
+import br.com.itengine.score.entity.Team;
+import br.com.itengine.score.entity.User;
+import br.com.itengine.score.repository.ActionRepository;
+import br.com.itengine.score.repository.LeagueRepository;
+import br.com.itengine.score.repository.MatchRepository;
+import br.com.itengine.score.repository.PlayerRepository;
+import br.com.itengine.score.repository.TeamRepository;
+import br.com.itengine.score.repository.UserRepository;
 
 @SpringBootApplication
 public class Application {
     private static final Logger log = LoggerFactory.getLogger(Application.class);
+    public static String ROOT = "upload-dir";
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -34,7 +48,7 @@ public class Application {
     ) {
         return (args) -> {
 
-
+            new File(ROOT).mkdir();
             User userRoot = new User();
             User userLeague = new User();
             User userTeam = new User();
@@ -42,35 +56,35 @@ public class Application {
             User userDelegateTwo = new User();
 
 
-            userRoot.setRole(Role.ROOT);
+            userRoot.setRole(Role.ROOT.toString());
             userRoot.setUsername("userroot");
             userRoot.setPassword("pass");
             userRoot.setName("Root");
             userRoot.setEmail("email@root.com");
             userRoot.setPhone("33333331");
 
-            userLeague.setRole(Role.LEAGUEADMIN);
+            userLeague.setRole(Role.LEAGUEADMIN.toString());
             userLeague.setUsername("userleague");
             userLeague.setPassword("pass");
             userLeague.setName("League Admin");
             userLeague.setEmail("email@league.com");
             userLeague.setPhone("33333332");
 
-            userTeam.setRole(Role.TEAMADMIN);
+//            userTeam.setRole(Role.TEAMADMIN);
             userTeam.setUsername("userteam");
             userTeam.setPassword("pass");
             userTeam.setName("Team Admin");
             userTeam.setEmail("email@team.com");
             userTeam.setPhone("33333333");
 
-            userDelegate.setRole(Role.DELEGATE);
+//            userDelegate.setRole(Role.DELEGATE);
             userDelegate.setUsername("userdelegate");
             userDelegate.setPassword("pass");
             userDelegate.setName("Delegate User");
             userDelegate.setEmail("email@delegate1.com");
             userDelegate.setPhone("33333334");
 
-            userDelegateTwo.setRole(Role.DELEGATE);
+//            userDelegateTwo.setRole(Role.DELEGATE);
             userDelegateTwo.setUsername("userdelegatetwo");
             userDelegateTwo.setPassword("pass");
             userDelegateTwo.setName("Delegate User 2");

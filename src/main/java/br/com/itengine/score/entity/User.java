@@ -3,7 +3,12 @@ package br.com.itengine.score.entity;//
 //
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class User implements Serializable {
@@ -23,18 +28,18 @@ public class User implements Serializable {
 
     private String username;
 
-    private Role role;
+    private String role;
 
     public User() {
 
     }
 
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

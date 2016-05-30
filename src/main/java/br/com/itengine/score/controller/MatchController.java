@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by thiag on 24/05/2016.
  */
-@CrossOrigin(origins = "http://localhost:63342")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/matches")
 public class MatchController {
