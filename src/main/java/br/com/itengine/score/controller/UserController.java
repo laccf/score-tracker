@@ -25,6 +25,7 @@ import br.com.itengine.score.repository.UserRepository;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/users")
+@PreAuthorize("hasRole('ROLE_ROOT')")
 public class UserController {
 
     @Autowired

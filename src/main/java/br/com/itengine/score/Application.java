@@ -51,6 +51,7 @@ public class Application {
             new File(ROOT).mkdir();
             User userRoot = new User();
             User userLeague = new User();
+            User userLeagueTwo = new User();
             User userTeam = new User();
             User userDelegate = new User();
             User userDelegateTwo = new User();
@@ -63,28 +64,35 @@ public class Application {
             userRoot.setEmail("email@root.com");
             userRoot.setPhone("33333331");
 
-            userLeague.setRole(Role.LEAGUEADMIN.toString());
+            userLeague.setRole(Role.LEAGUE.toString());
             userLeague.setUsername("userleague");
             userLeague.setPassword("pass");
             userLeague.setName("League Admin");
             userLeague.setEmail("email@league.com");
             userLeague.setPhone("33333332");
 
-//            userTeam.setRole(Role.TEAMADMIN);
+            userLeagueTwo.setRole(Role.LEAGUE.toString());
+            userLeagueTwo.setUsername("userleaguetwo");
+            userLeagueTwo.setPassword("pass");
+            userLeagueTwo.setName("League Admin Two");
+            userLeagueTwo.setEmail("emailTwo@league.com");
+            userLeagueTwo.setPhone("33333332");
+
+            userTeam.setRole(Role.TEAM.toString());
             userTeam.setUsername("userteam");
             userTeam.setPassword("pass");
             userTeam.setName("Team Admin");
             userTeam.setEmail("email@team.com");
             userTeam.setPhone("33333333");
 
-//            userDelegate.setRole(Role.DELEGATE);
+            userDelegate.setRole(Role.DELEGATE.toString());
             userDelegate.setUsername("userdelegate");
             userDelegate.setPassword("pass");
             userDelegate.setName("Delegate User");
             userDelegate.setEmail("email@delegate1.com");
             userDelegate.setPhone("33333334");
 
-//            userDelegateTwo.setRole(Role.DELEGATE);
+            userDelegateTwo.setRole(Role.DELEGATE.toString());
             userDelegateTwo.setUsername("userdelegatetwo");
             userDelegateTwo.setPassword("pass");
             userDelegateTwo.setName("Delegate User 2");
@@ -93,6 +101,7 @@ public class Application {
 
             userRoot = userRepository.save(userRoot);
             userLeague = userRepository.save(userLeague);
+            userLeagueTwo = userRepository.save(userLeagueTwo);
             userTeam = userRepository.save(userTeam);
             userDelegate = userRepository.save(userDelegate);
             userDelegateTwo = userRepository.save(userDelegateTwo);

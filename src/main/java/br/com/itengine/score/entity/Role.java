@@ -4,10 +4,10 @@ package br.com.itengine.score.entity;
  * Created by thiag on 24/05/2016.
  */
 public enum Role {
-    ROOT("ROOT"),
-    LEAGUEADMIN("LEAGUEADMIN"),
-    TEAMADMIN("TEAMADMIN"),
-    DELEGATE("DELEGATE");
+    ROOT("ROLE_ROOT"),
+    LEAGUE("ROLE_LEAGUE"),
+    TEAM("ROLE_TEAM"),
+    DELEGATE("ROLE_DELEGATE");
 
     private final String label;
 
