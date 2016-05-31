@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Created by Thiago Almeida on 30/05/2016.
+ * Created by Thiago Almeida.
  */
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/actions")
 public class ActionController {
@@ -37,9 +36,8 @@ public class ActionController {
         return new ResponseEntity<Action>(actionRepository.findById(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Action> update(@RequestBody Action action,@PathVariable Integer id) {
-        action.setId(id);
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    public ResponseEntity<Action> update(@RequestBody Action action) {
         return new ResponseEntity<Action>(actionRepository.save(action), HttpStatus.OK);
     }
 

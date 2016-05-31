@@ -1,5 +1,7 @@
 package br.com.itengine.score.controller;
 
+import java.security.Principal;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,9 @@ import br.com.itengine.score.entity.User;
 import br.com.itengine.score.repository.UserRepository;
 
 /**
- * Created by thiag on 23/05/2016.
+ * Created by thiag.
  */
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/users")
 @PreAuthorize("hasRole('ROLE_ROOT')")
@@ -36,6 +37,13 @@ public class UserController {
         return new ResponseEntity<List<User>>(userRepository.findAll(), HttpStatus.OK);
     }
 
+
+    @RequestMapping(value="/currentuser",method = RequestMethod.GET)
+    public ResponseEntity<User> getCurrentUser(Principal principal) {
+        return new ResponseEntity<User>(userRepository.findByUsername(principal.getName()), HttpStatus.OK);
+    }
+
+
     @RequestMapping(value="/{id}",method = RequestMethod.GET)
     public ResponseEntity<User> findById(@PathVariable("id") Integer id) {
         return new ResponseEntity<User>(userRepository.findById(id), HttpStatus.OK);
@@ -46,13 +54,21 @@ public class UserController {
         return new ResponseEntity<List<User>>(userRepository.findByRole(role), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/{id}",method = RequestMethod.PUT)
-    public ResponseEntity<User> update(@RequestBody User user,@PathVariable Integer id) {
-        user.setId(id);
-        return new ResponseEntity<User>(userRepository.save(user), HttpStatus.OK);
+    @RequestMapping(value="/roles",method = RequestMethod.GET)
+    public ResponseEntity<List<Role>> getRoles() {
+        List<Role> roles = new LinkedList<>();
+        roles.add(Role.ROOT);
+        roles.add(Role.DELEGATE);
+        roles.add(Role.LEAGUE);
+        roles.add(Role.TEAM);
+
+        return new ResponseEntity<List<Role>>(roles, HttpStatus.OK);
     }
 
-
+    @RequestMapping(value="",method = RequestMethod.PUT)
+    public ResponseEntity<User> update(@RequestBody User user) {
+        return new ResponseEntity<User>(userRepository.save(user), HttpStatus.OK);
+    }
 
     @RequestMapping(value="",method = RequestMethod.POST)
     public ResponseEntity<User> create(@RequestBody User user) {

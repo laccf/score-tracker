@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by thiag on 27/05/2016.
+ * Created by thiag.
  */
 public class TeamReport {
     TeamInfo team;

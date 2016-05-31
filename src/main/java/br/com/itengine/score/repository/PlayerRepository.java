@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 /**
- * Created by Thiago Almeida on 17/05/2016.
+ * Created by Thiago Almeida.
  */
 public interface PlayerRepository  extends CrudRepository<Player, Integer> {
 

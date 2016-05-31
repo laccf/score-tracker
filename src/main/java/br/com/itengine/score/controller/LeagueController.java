@@ -12,9 +12,8 @@ import java.security.Principal;
 import java.util.List;
 
 /**
- * Created by thiag on 23/05/2016.
+ * Created by thiag.
  */
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/leagues")
 public class LeagueController {
@@ -38,8 +37,12 @@ public class LeagueController {
     @PreAuthorize("hasAnyRole('ROLE_ROOT','ROLE_LEAGUE')")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<League>> findAll(Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+        if(Role.ROOT.toString().equals(user.getRole())){
             return new ResponseEntity<List<League>>(leagueRepository.findAll(), HttpStatus.OK);
-
+        }else{
+            return new ResponseEntity<List<League>>(leagueRepository.findByLeagueAdmin(user), HttpStatus.OK);
+        }
     }
 
     @PreAuthorize("hasRole('ROLE_ROOT')")
@@ -49,9 +52,9 @@ public class LeagueController {
     }
 
     @PreAuthorize("hasRole('ROLE_ROOT')")
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<League> update(@RequestBody League league, @PathVariable Integer id) {
-        league.setId(id);
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    public ResponseEntity<League> update(@RequestBody League league) {
+
         return new ResponseEntity<League>(leagueRepository.save(league), HttpStatus.OK);
     }
 

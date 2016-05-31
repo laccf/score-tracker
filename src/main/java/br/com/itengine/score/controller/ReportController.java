@@ -24,9 +24,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Created by thiag on 27/05/2016.
+ * Created by thiag.
  */
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/report")
 @PreAuthorize("isAnonymous()")

@@ -18,14 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by thiag on 24/05/2016.
+ * Created by thiag.
  */
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/teams")
 public class TeamController {
-
 
     @Autowired
     TeamRepository teamRepository;
@@ -41,8 +39,8 @@ public class TeamController {
     @Autowired
     UserRepository userRepository;
 
-
-
+    //TODO Garantir que o get corresponde a um tipo do usuario logado (Principal)
+    @PreAuthorize("hasAnyRole('ROLE_LEAGUE',ROLE_TEAM)")
     @RequestMapping(value="",method = RequestMethod.GET)
     public ResponseEntity<List<Team>> findAll(Principal principal) {
         User user  = userRepository.findByUsername(principal.getName());
@@ -55,22 +53,26 @@ public class TeamController {
         return new ResponseEntity<List<Team>>(teams, HttpStatus.OK);
     }
 
+    //TODO Garantir que o get corresponde a um tipo do usuario logado (Principal)
+    @PreAuthorize("hasAnyRole('ROLE_LEAGUE',ROLE_TEAM)")
     @RequestMapping(value="/{id}",method = RequestMethod.GET)
     public ResponseEntity<Team> findById(@PathVariable("id") Integer id) {
         return new ResponseEntity<Team>(teamRepository.findById(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/{id}",method = RequestMethod.PUT)
-    public ResponseEntity<Team> update(@RequestBody Team team, @PathVariable Integer id) {
-        team.setId(id);
+    @PreAuthorize("hasRole('ROLE_LEAGUE')")
+    @RequestMapping(value="",method = RequestMethod.PUT)
+    public ResponseEntity<Team> update(@RequestBody Team team) {
         return new ResponseEntity<Team>(teamRepository.save(team), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_LEAGUE')")
     @RequestMapping(value="",method = RequestMethod.POST)
     public ResponseEntity<Team> create(@RequestBody Team team) {
         return new ResponseEntity<Team>(teamRepository.save(team), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ROLE_LEAGUE')")
     @RequestMapping(value="",method = RequestMethod.DELETE)
     public ResponseEntity<Team> delete(Team team) {
         if(teamRepository.exists(team.getId())){
@@ -80,6 +82,9 @@ public class TeamController {
             return new ResponseEntity<Team>(team, HttpStatus.NOT_FOUND);
         }
     }
+
+    //TODO Garantir que a deleção corresponde a um tipe do usuario logado (Principal)
+    @PreAuthorize("hasRole('ROLE_LEAGUE')")
     @RequestMapping(value="/{id}",method = RequestMethod.DELETE)
     public ResponseEntity<Team> delete(@PathVariable Integer id) {
         if(teamRepository.exists(id)){
@@ -99,7 +104,4 @@ public class TeamController {
             return new ResponseEntity<Team>(new Team(), HttpStatus.NOT_FOUND);
         }
     }
-
-
-
 }

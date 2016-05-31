@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by thiag on 27/05/2016.
+ * Created by thiag.
  */
 public class Report {
     LeagueInfo league;

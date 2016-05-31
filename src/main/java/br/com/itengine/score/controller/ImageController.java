@@ -12,10 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 
 /**
- * Created by Thiago Almeida on 30/05/2016.
+ * Created by Thiago Almeida.
  */
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/image")
 public class ImageController {

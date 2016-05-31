@@ -126,6 +126,18 @@ public class Application {
             leaguePernabucano.setLeagueAdmin(userLeague);
             leaguePernabucano = leagueRepository.save(leaguePernabucano);
 
+            League leagueParaibano = new League();
+            leagueParaibano.setName("Paraibano's League");
+            leagueParaibano.setDate(2016);
+            leagueParaibano.setLeagueAdmin(userLeague);
+            leagueParaibano = leagueRepository.save(leagueParaibano);
+
+            League leagueBaiano = new League();
+            leagueBaiano.setName("Baiano's League");
+            leagueBaiano.setDate(2017);
+            leagueBaiano.setLeagueAdmin(userLeagueTwo);
+            leagueBaiano = leagueRepository.save(leagueBaiano);
+
             Team teamSport = new Team();
             teamSport.setName("Sport Club");
             teamSport.setLeague(leaguePernabucano);

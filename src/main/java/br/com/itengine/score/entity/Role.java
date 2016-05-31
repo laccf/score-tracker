@@ -1,7 +1,7 @@
 package br.com.itengine.score.entity;
 
 /**
- * Created by thiag on 24/05/2016.
+ * Created by thiag.
  */
 public enum Role {
     ROOT("ROLE_ROOT"),

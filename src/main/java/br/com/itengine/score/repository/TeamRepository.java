@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 /**
- * Created by MyLittle on 17/05/16.
+ * Created by .
  */
 public interface TeamRepository extends CrudRepository<Team, Integer> {
 

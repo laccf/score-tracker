@@ -1,7 +1,7 @@
 package br.com.itengine.score.domain;
 
 /**
- * Created by thiag on 29/05/2016.
+ * Created by thiag.
  */
 public class TeamInfo {
     private Integer id;
