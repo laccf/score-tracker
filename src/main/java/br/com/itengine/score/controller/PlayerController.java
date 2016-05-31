@@ -14,7 +14,6 @@ import java.util.List;
 /**
  * Created by thiag on 24/05/2016.
  */
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/players")
 public class PlayerController {
