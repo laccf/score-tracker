@@ -15,7 +15,7 @@ import java.util.List;
  * Created by thiag.
  */
 @RestController
-@RequestMapping("/leagues")
+@RequestMapping("/rest/leagues")
 public class LeagueController {
 
     @Autowired
@@ -38,7 +38,7 @@ public class LeagueController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<League>> findAll(Principal principal) {
         User user = userRepository.findByUsername(principal.getName());
-        if(Role.ROOT.toString().equals(user.getRole())){
+        if(Role.ROLE_ROOT.toString().equals(user.getRole())){
             return new ResponseEntity<List<League>>(leagueRepository.findAll(), HttpStatus.OK);
         }else{
             return new ResponseEntity<List<League>>(leagueRepository.findByLeagueAdmin(user), HttpStatus.OK);

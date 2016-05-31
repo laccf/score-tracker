@@ -27,8 +27,7 @@ import java.util.stream.Collectors;
  * Created by thiag.
  */
 @RestController
-@RequestMapping("/report")
-@PreAuthorize("isAnonymous()")
+@RequestMapping("/rest/report")
 public class ReportController {
 
     @Autowired

@@ -27,9 +27,6 @@ import br.com.itengine.score.repository.MatchRepository;
 import br.com.itengine.score.repository.PlayerRepository;
 import br.com.itengine.score.repository.TeamRepository;
 import br.com.itengine.score.repository.UserRepository;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
 public class Application {
@@ -39,17 +36,6 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurerAdapter() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("*").allowedOrigins("*");
-            }
-        };
-    }
-
 
     @Bean
     public CommandLineRunner loadData(MatchRepository matchRepository,
@@ -70,42 +56,42 @@ public class Application {
             User userDelegateTwo = new User();
 
 
-            userRoot.setRole(Role.ROOT.toString());
+            userRoot.setRole(Role.ROLE_ROOT.toString());
             userRoot.setUsername("userroot");
             userRoot.setPassword("pass");
             userRoot.setName("Root");
             userRoot.setEmail("email@root.com");
             userRoot.setPhone("33333331");
 
-            userLeague.setRole(Role.LEAGUE.toString());
+            userLeague.setRole(Role.ROLE_LEAGUE.toString());
             userLeague.setUsername("userleague");
             userLeague.setPassword("pass");
             userLeague.setName("League Admin");
             userLeague.setEmail("email@league.com");
             userLeague.setPhone("33333332");
 
-            userLeagueTwo.setRole(Role.LEAGUE.toString());
+            userLeagueTwo.setRole(Role.ROLE_LEAGUE.toString());
             userLeagueTwo.setUsername("userleaguetwo");
             userLeagueTwo.setPassword("pass");
             userLeagueTwo.setName("League Admin Two");
             userLeagueTwo.setEmail("emailTwo@league.com");
             userLeagueTwo.setPhone("33333332");
 
-            userTeam.setRole(Role.TEAM.toString());
+            userTeam.setRole(Role.ROLE_TEAM.toString());
             userTeam.setUsername("userteam");
             userTeam.setPassword("pass");
             userTeam.setName("Team Admin");
             userTeam.setEmail("email@team.com");
             userTeam.setPhone("33333333");
 
-            userDelegate.setRole(Role.DELEGATE.toString());
+            userDelegate.setRole(Role.ROLE_DELEGATE.toString());
             userDelegate.setUsername("userdelegate");
             userDelegate.setPassword("pass");
             userDelegate.setName("Delegate User");
             userDelegate.setEmail("email@delegate1.com");
             userDelegate.setPhone("33333334");
 
-            userDelegateTwo.setRole(Role.DELEGATE.toString());
+            userDelegateTwo.setRole(Role.ROLE_DELEGATE.toString());
             userDelegateTwo.setUsername("userdelegatetwo");
             userDelegateTwo.setPassword("pass");
             userDelegateTwo.setName("Delegate User 2");

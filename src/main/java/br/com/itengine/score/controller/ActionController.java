@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/actions")
+@RequestMapping("/rest/actions")
 public class ActionController {
 
     @Autowired

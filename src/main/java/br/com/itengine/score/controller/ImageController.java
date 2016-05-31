@@ -16,7 +16,7 @@ import java.io.*;
  */
 
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/rest/image")
 public class ImageController {
 
     @RequestMapping(value="/league",method = RequestMethod.POST)

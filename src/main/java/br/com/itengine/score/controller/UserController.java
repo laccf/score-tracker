@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +24,7 @@ import br.com.itengine.score.repository.UserRepository;
  */
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/rest/users")
 @PreAuthorize("hasRole('ROLE_ROOT')")
 public class UserController {
 
@@ -50,17 +49,17 @@ public class UserController {
     }
 
     @RequestMapping(value="/role",method = RequestMethod.GET)
-    public ResponseEntity<List<User>> findByRole(@RequestParam Role role) {
+    public ResponseEntity<List<User>> findByRole(@RequestParam String role) {
         return new ResponseEntity<List<User>>(userRepository.findByRole(role), HttpStatus.OK);
     }
 
     @RequestMapping(value="/roles",method = RequestMethod.GET)
     public ResponseEntity<List<Role>> getRoles() {
         List<Role> roles = new LinkedList<>();
-        roles.add(Role.ROOT);
-        roles.add(Role.DELEGATE);
-        roles.add(Role.LEAGUE);
-        roles.add(Role.TEAM);
+        roles.add(Role.ROLE_ROOT);
+        roles.add(Role.ROLE_DELEGATE);
+        roles.add(Role.ROLE_LEAGUE);
+        roles.add(Role.ROLE_TEAM);
 
         return new ResponseEntity<List<Role>>(roles, HttpStatus.OK);
     }

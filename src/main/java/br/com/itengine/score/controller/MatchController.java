@@ -16,7 +16,7 @@ import java.util.List;
  * Created by thiag.
  */
 @RestController
-@RequestMapping("/matches")
+@RequestMapping("/rest/matches")
 public class MatchController {
 
 

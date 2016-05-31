@@ -16,7 +16,7 @@ import java.util.List;
  * Created by thiag.
  */
 @RestController
-@RequestMapping("/players")
+@RequestMapping("/rest/players")
 public class PlayerController {
 
     @Autowired
