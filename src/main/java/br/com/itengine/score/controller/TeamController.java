@@ -1,7 +1,11 @@
 package br.com.itengine.score.controller;
 
+import java.security.Principal;
+import java.util.LinkedList;
 import java.util.List;
 
+import br.com.itengine.score.entity.*;
+import br.com.itengine.score.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import br.com.itengine.score.entity.Match;
-import br.com.itengine.score.entity.Player;
-import br.com.itengine.score.entity.Team;
-import br.com.itengine.score.repository.MatchRepository;
-import br.com.itengine.score.repository.PlayerRepository;
-import br.com.itengine.score.repository.TeamRepository;
 
 /**
  * Created by thiag on 24/05/2016.
@@ -34,14 +31,28 @@ public class TeamController {
     TeamRepository teamRepository;
 
     @Autowired
+    LeagueRepository leagueRepository;
+
+    @Autowired
     PlayerRepository playerRepository;
 
     @Autowired
     MatchRepository matchRepository;
+    @Autowired
+    UserRepository userRepository;
+
+
 
     @RequestMapping(value="",method = RequestMethod.GET)
-    public ResponseEntity<List<Team>> findAll() {
-        return new ResponseEntity<List<Team>>(teamRepository.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<Team>> findAll(Principal principal) {
+        User user  = userRepository.findByUsername(principal.getName());
+        List<League> leagues = leagueRepository.findByLeagueAdmin(user);
+        List<Team> teams = new LinkedList<>();
+
+        for (League league: leagues) {
+            teams.addAll(teamRepository.findByLeague(league));
+        }
+        return new ResponseEntity<List<Team>>(teams, HttpStatus.OK);
     }
 
     @RequestMapping(value="/{id}",method = RequestMethod.GET)
@@ -49,22 +60,15 @@ public class TeamController {
         return new ResponseEntity<Team>(teamRepository.findById(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value="",method = RequestMethod.PUT)
-    public ResponseEntity<Team> update(Team team) {
-        if(teamRepository.exists(team.getId())){
-            return new ResponseEntity<Team>(teamRepository.save(team), HttpStatus.OK);
-        }else{
-            return new ResponseEntity<Team>(team, HttpStatus.NOT_FOUND);
-        }
+    @RequestMapping(value="/{id}",method = RequestMethod.PUT)
+    public ResponseEntity<Team> update(@RequestBody Team team, @PathVariable Integer id) {
+        team.setId(id);
+        return new ResponseEntity<Team>(teamRepository.save(team), HttpStatus.OK);
     }
 
     @RequestMapping(value="",method = RequestMethod.POST)
     public ResponseEntity<Team> create(@RequestBody Team team) {
-        if(null == team.getId()){
-            return new ResponseEntity<Team>(teamRepository.save(team), HttpStatus.CREATED);
-        }else{
-            return new ResponseEntity<Team>(team, HttpStatus.CONFLICT);
-        }
+        return new ResponseEntity<Team>(teamRepository.save(team), HttpStatus.CREATED);
     }
 
     @RequestMapping(value="",method = RequestMethod.DELETE)

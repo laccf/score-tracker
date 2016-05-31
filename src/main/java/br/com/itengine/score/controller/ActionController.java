@@ -37,14 +37,18 @@ public class ActionController {
         return new ResponseEntity<Action>(actionRepository.findById(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity<Action> update(Action action) {
-        if (actionRepository.exists(action.getId())) {
-            return new ResponseEntity<Action>(actionRepository.save(action), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<Action>(action, HttpStatus.NOT_FOUND);
-        }
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Action> update(@RequestBody Action action,@PathVariable Integer id) {
+        action.setId(id);
+        return new ResponseEntity<Action>(actionRepository.save(action), HttpStatus.OK);
     }
+
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    public ResponseEntity<Action> create(@RequestBody Action action) {
+        return new ResponseEntity<Action>(actionRepository.save(action), HttpStatus.OK);
+    }
+
 
 
     @RequestMapping(value="/{id}",method = RequestMethod.DELETE)

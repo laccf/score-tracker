@@ -35,22 +35,15 @@ public class MatchController {
     }
 
 
-    @RequestMapping(value="",method = RequestMethod.PUT)
-    public ResponseEntity<Match> update(Match match) {
-        if(matchRepository.exists(match.getId())){
-            return new ResponseEntity<Match>(matchRepository.save(match), HttpStatus.OK);
-        }else{
-            return new ResponseEntity<Match>(match, HttpStatus.NOT_FOUND);
-        }
+    @RequestMapping(value="/{id}",method = RequestMethod.PUT)
+    public ResponseEntity<Match> update(@RequestBody Match match,@PathVariable Integer id) {
+        match.setId(id);
+        return new ResponseEntity<Match>(matchRepository.save(match), HttpStatus.OK);
     }
 
     @RequestMapping(value="",method = RequestMethod.POST)
     public ResponseEntity<Match> create(@RequestBody Match match) {
-        if(!matchRepository.exists(match.getId())){
-            return new ResponseEntity<Match>(matchRepository.save(match), HttpStatus.CREATED);
-        }else{
-            return new ResponseEntity<Match>(match, HttpStatus.CONFLICT);
-        }
+        return new ResponseEntity<Match>(matchRepository.save(match), HttpStatus.CREATED);
     }
 
     @RequestMapping(value="",method = RequestMethod.DELETE)

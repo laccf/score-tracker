@@ -34,11 +34,11 @@ public class Team implements Serializable {
     private String logo;
 
     @OneToMany(targetEntity = Player.class, mappedBy = "team")
-    @JsonBackReference
+    @JsonManagedReference
     private List<Player> players;
 
     @ManyToOne(optional = false, targetEntity = League.class)
-    @JsonManagedReference
+    @JsonBackReference
     private League league;
 
     @ManyToOne(targetEntity = User.class)

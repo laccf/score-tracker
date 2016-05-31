@@ -46,22 +46,17 @@ public class UserController {
         return new ResponseEntity<List<User>>(userRepository.findByRole(role), HttpStatus.OK);
     }
 
-    @RequestMapping(value="",method = RequestMethod.PUT)
-    public ResponseEntity<User> update(User user) {
-        if(userRepository.exists(user.getId())){
-            return new ResponseEntity<User>(userRepository.save(user), HttpStatus.OK);
-        }else{
-            return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
-        }
+    @RequestMapping(value="/{id}",method = RequestMethod.PUT)
+    public ResponseEntity<User> update(@RequestBody User user,@PathVariable Integer id) {
+        user.setId(id);
+        return new ResponseEntity<User>(userRepository.save(user), HttpStatus.OK);
     }
+
+
 
     @RequestMapping(value="",method = RequestMethod.POST)
     public ResponseEntity<User> create(@RequestBody User user) {
-        if(!userRepository.exists(user.getId())){
-            return new ResponseEntity<User>(userRepository.save(user), HttpStatus.CREATED);
-        }else{
-            return new ResponseEntity<User>(user, HttpStatus.CONFLICT);
-        }
+        return new ResponseEntity<User>(userRepository.save(user), HttpStatus.CREATED);
     }
 
     @RequestMapping(value="",method = RequestMethod.DELETE)

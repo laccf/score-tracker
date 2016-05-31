@@ -38,12 +38,8 @@ public class LeagueController {
     @PreAuthorize("hasAnyRole('ROLE_ROOT','ROLE_LEAGUE')")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<List<League>> findAll(Principal principal) {
-        User user = userRepository.findByUsername(principal.getName());
-        if(Role.ROOT.equals(user.getRole())){
             return new ResponseEntity<List<League>>(leagueRepository.findAll(), HttpStatus.OK);
-        }else{
-            return new ResponseEntity<List<League>>(leagueRepository.findByLeagueAdmin(user), HttpStatus.OK);
-        }
+
     }
 
     @PreAuthorize("hasRole('ROLE_ROOT')")
@@ -53,23 +49,17 @@ public class LeagueController {
     }
 
     @PreAuthorize("hasRole('ROLE_ROOT')")
-    @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity<League> update(League league) {
-        if (leagueRepository.exists(league.getId())) {
-            return new ResponseEntity<League>(leagueRepository.save(league), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<League>(league, HttpStatus.NOT_FOUND);
-        }
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<League> update(@RequestBody League league, @PathVariable Integer id) {
+        league.setId(id);
+        return new ResponseEntity<League>(leagueRepository.save(league), HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ROLE_ROOT')")
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<League> create(@RequestBody League league) {
-        if (null == league.getId()) {
-            return new ResponseEntity<League>(leagueRepository.save(league), HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<League>(league, HttpStatus.CONFLICT);
-        }
+        return new ResponseEntity<League>(leagueRepository.save(league), HttpStatus.CREATED);
+
     }
 
     @PreAuthorize("hasRole('ROLE_ROOT')")

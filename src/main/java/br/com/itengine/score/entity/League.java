@@ -30,7 +30,7 @@ public class League implements Serializable {
     private User leagueAdmin;
 
     @OneToMany(targetEntity = Team.class, mappedBy = "league")
-    @JsonBackReference
+    @JsonManagedReference
     private List<Team> teams;
 
     public League() {

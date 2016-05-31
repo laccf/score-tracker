@@ -29,27 +29,17 @@ public class Player implements Serializable {
 
     private String image;
 
-    private boolean isDeleted;
-
     private String name;
 
     private Integer weight;
 
 
     @ManyToOne( targetEntity = Team.class)
-    @JsonManagedReference
+    @JsonBackReference
     private Team team;
 
     public Player() {
 
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
     }
 
     public String getLastName() {
