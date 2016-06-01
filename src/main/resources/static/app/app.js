@@ -14,8 +14,9 @@ var urlLeagueTeam = host + '/rest/leagues';
 var urlGetUsersLeague = host + '/rest/users/role?role=ROLE_LEAGUE';
 var urlTeams = host + '/rest/teams';
 var urlAllRoles = host + '/rest/users/roles';
-var urlAllActions = host + '/rest/actions';
 var urlAllActionTypes = host + '/rest/actions/types';
+var urlActions = host + '/rest/actions';
+var urlPlayerByTeam = host + '/players/team?id=';
 
 // Declare app level module which depends on views, and components
 var module = angular.module('myApp', ['ui.router','ngMessages']);
@@ -528,14 +529,11 @@ module.controller("matchesCtrl", function ($scope, $http) {
         success(function() {
             $scope.matches.splice(index, 1);
 
-        }).error(function (data, status, headers, config) {
+        }).error(function (status) {
 
             /* Lançar mensagem de erro*/
             console.log($scope);
             console.log(status);
-            console.log(data);
-            console.log(headers);
-            console.log(config);
         });
     };
 
@@ -580,6 +578,8 @@ module.controller("matchesCtrl", function ($scope, $http) {
 module.controller("matchCtrl", function ($scope, $http, $stateParams) {
 
     var url = urlMatches + '/' + $stateParams.matchId;
+
+
 
     $scope.actionsToSelect = {
         actionSelected: null,
@@ -626,6 +626,79 @@ module.controller("matchCtrl", function ($scope, $http, $stateParams) {
         console.log(status);
     });
 
+
+    $scope.addAction = function () {
+
+        var actionsArray=$scope.match.actions;
+
+        var addedAction  =                {
+            minute: $scope.actionMinute,
+            actionType: $scope.actionsToSelect.actionSelected,
+            player: {
+                id: $scope.playersToSelect.playerSelected
+            }
+        }
+
+        actionsArray.push(addedAction);
+
+        var addedMatch =
+        {
+            id: $scope.match.id,
+            actions: actionsArray,
+            league:{
+                id: $scope.match.league.id
+            },
+            teamHome:{
+                id: $scope.match.teamHome.id
+            },
+            teamVisitor:{
+                id: $scope.match.teamVisitor.id
+            },
+            delegate:{
+                id: $scope.match.delegate.id
+            }
+        };
+
+        $http({
+            method: 'PUT',
+            url: urlMatches,
+            data: addedMatch,
+            headers: {'Content-Type': 'application/json'}
+        }).
+        success(function(addedMatch) {
+            $scope.match.actions.push();
+            $scope.match.actions.push(addedAction);
+        }).
+        error(function(status) {
+            /* Lançar mensagem de erro*/
+            console.log($scope);
+            console.log(status);
+
+        });
+
+    };
+
+    $scope.removeAction = function (index) {
+
+        var actionToDelete = $scope.match.actions[index];
+        var url = urlActions + '/' + actionToDelete.id;
+
+        $http({
+            method: 'DELETE',
+            url: url
+        }).
+        success(function() {
+            $scope.match.actions.splice(index, 1);
+
+        }).error(function (status) {
+
+            /* Lançar mensagem de erro*/
+            console.log($scope);
+            console.log(status);
+        });
+    };
+    
+    
 });
 
 /* Users and User Controller */

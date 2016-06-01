@@ -37,7 +37,7 @@ public class MatchController {
         return new ResponseEntity<Match>(matchRepository.findById(id), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_LEAGUE')")
+    @PreAuthorize("hasAnyRole('ROLE_LEAGUE','ROLE_DELEGATE')")
     @RequestMapping(value="",method = RequestMethod.PUT)
     public ResponseEntity<Match> update(@RequestBody Match match) {
         return new ResponseEntity<Match>(matchRepository.save(match), HttpStatus.OK);

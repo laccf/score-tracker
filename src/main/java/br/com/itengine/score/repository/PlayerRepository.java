@@ -15,6 +15,6 @@ public interface PlayerRepository  extends CrudRepository<Player, Integer> {
     List<Player> findAll();
     List<Player> findByNameAndLastNameIgnoreCase(String name, String lastName);
     Player findById(Integer id);
-    Team findTeamById(Integer id);
+    List<Player> findByTeamId(Integer id);
 
 }

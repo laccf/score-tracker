@@ -4,6 +4,7 @@ package br.com.itengine.score.entity;//
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -122,6 +123,9 @@ public class Match implements Serializable {
     }
 
     public List<Action> getActions() {
+        if(null == this.actions){
+            this.actions = new LinkedList<>();
+        }
         return this.actions;
     }
 

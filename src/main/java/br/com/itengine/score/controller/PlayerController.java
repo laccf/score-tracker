@@ -23,10 +23,16 @@ public class PlayerController {
     PlayerRepository playerRepository;
 
     //TODO Garantir que o get corresponde a um tipo do usuario logado (Principal)
-    @PreAuthorize("hasRole('ROLE_TEAM')")
+    @PreAuthorize("hasAnyRole('ROLE_TEAM','ROLE_DELEGATE')")
     @RequestMapping(value="",method = RequestMethod.GET)
     public ResponseEntity<List<Player>> findAll() {
         return new ResponseEntity<List<Player>>(playerRepository.findAll(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_DELEGATE')")
+    @RequestMapping(value="/team",method = RequestMethod.GET)
+    public ResponseEntity<List<Player>> findByRole(@RequestParam Integer id) {
+        return new ResponseEntity<List<Player>>(playerRepository.findByTeamId(id), HttpStatus.OK);
     }
 
     //TODO Garantir que o get corresponde a um tipo do usuario logado (Principal)

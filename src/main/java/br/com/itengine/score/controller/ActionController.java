@@ -8,6 +8,7 @@ import br.com.itengine.score.repository.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
@@ -27,12 +28,13 @@ public class ActionController {
     @Autowired
     MatchRepository matchRepository;
 
-
+    @PreAuthorize("hasRole('ROLE_DELEGATE')")
     @RequestMapping(value="",method = RequestMethod.GET)
     public ResponseEntity<List<Action>> findAll() {
         return new ResponseEntity<List<Action>>(actionRepository.findAll(), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_DELEGATE')")
     @RequestMapping(value="/types",method = RequestMethod.GET)
     public ResponseEntity<List<ActionType>> getActionTypes() {
         List<ActionType> actionTypes = new LinkedList<>();
@@ -44,25 +46,25 @@ public class ActionController {
         return new ResponseEntity<List<ActionType>>(actionTypes, HttpStatus.OK);
     }
 
-
+    @PreAuthorize("hasRole('ROLE_DELEGATE')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Action> findById(@PathVariable("id") Integer id) {
         return new ResponseEntity<Action>(actionRepository.findById(id), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_DELEGATE')")
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<Action> update(@RequestBody Action action) {
         return new ResponseEntity<Action>(actionRepository.save(action), HttpStatus.OK);
     }
 
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_DELEGATE')")
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<Action> create(@RequestBody Action action) {
         return new ResponseEntity<Action>(actionRepository.save(action), HttpStatus.OK);
     }
 
-
-
+    @PreAuthorize("hasRole('ROLE_DELEGATE')")
     @RequestMapping(value="/{id}",method = RequestMethod.DELETE)
     public ResponseEntity<Action> delete(@PathVariable("id") Integer id) {
         if(actionRepository.exists(id)){
