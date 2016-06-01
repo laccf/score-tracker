@@ -116,9 +116,9 @@ public class LeagueController {
                 }
                 teamRepository.delete(team);
             }
-            leagueRepository.delete(id);
-
-
+            if(leagueRepository.exists(id)){
+                leagueRepository.delete(id);
+            }
             return new ResponseEntity<League>(league, HttpStatus.OK);
         } else {
             return new ResponseEntity<League>(new League(), HttpStatus.NOT_FOUND);

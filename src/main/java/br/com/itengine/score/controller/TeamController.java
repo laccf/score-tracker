@@ -74,14 +74,23 @@ public class TeamController {
 
     @PreAuthorize("hasRole('ROLE_LEAGUE')")
     @RequestMapping(value="",method = RequestMethod.DELETE)
-    public ResponseEntity<Team> delete(Team team) {
-        if(teamRepository.exists(team.getId())){
+    public ResponseEntity<Team> delete(Team t) {
+        if(teamRepository.exists(t.getId())){
+            Team team = teamRepository.findOne(t.getId());
+            List<Match> matches = matchRepository.findByTeamVisitorOrTeamHome(team,team);
+            for (Match match: matches ) {
+                matchRepository.delete(match);
+            }
+            for (Player player: team.getPlayers()
+                    ) {
+                playerRepository.delete(player);
+
+            }
             teamRepository.delete(team);
             return new ResponseEntity<Team>(team, HttpStatus.OK);
         }else{
-            return new ResponseEntity<Team>(team, HttpStatus.NOT_FOUND);
-        }
-    }
+            return new ResponseEntity<Team>(new Team(), HttpStatus.NOT_FOUND);
+        }    }
 
     //TODO Garantir que a deleção corresponde a um tipe do usuario logado (Principal)
     @PreAuthorize("hasRole('ROLE_LEAGUE')")

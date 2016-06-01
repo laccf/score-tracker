@@ -1,6 +1,6 @@
 'use strict'
 
-var host = 'http://localhost:8080';
+var host = '';
 var urlDashboard = host + '/rest/report';
 var urlLeagues = host + '/rest/leagues';
 var urlTeams = host + '/rest/teams';
