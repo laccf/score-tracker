@@ -37,9 +37,9 @@ public class MatchInfo {
         for (Action act: match.getActions()) {
             if (ActionType.GOAL.equals(act.getActionType())){
                 if(act.getPlayer().getTeam().getName().equals(match.getTeamHome().getName())){
-                    this.homeTeamScore = this.homeTeamScore++;
+                    this.homeTeamScore+=1;
                 }else if(act.getPlayer().getTeam().getName().equals(match.getTeamVisitor().getName())){
-                    this.visitorTeamScore = this.visitorTeamScore++;
+                    this.visitorTeamScore+=1;;
                 }
             }
         }

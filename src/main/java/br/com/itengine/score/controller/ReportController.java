@@ -6,6 +6,8 @@ import br.com.itengine.score.repository.LeagueRepository;
 import br.com.itengine.score.repository.MatchRepository;
 import br.com.itengine.score.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,6 +66,43 @@ public class ReportController {
             report.setTeams(retorno);
             reports.add(report);
         }
+        return reports;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ROOT')")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public List<Report> findById(@PathVariable Integer id) {
+        League league = leagueRepository.findById(id);
+        List<Report> reports = new LinkedList<>();
+
+        List<Action> actions = getActions(matchRepository.findByLeague(league));
+        List<Team> teams = teamRepository.findByLeague(league);
+        List<Match> matches = matchRepository.findByLeague(league);
+
+        List<TeamReport> retorno = new LinkedList<>();
+        List<MatchInfo> matchInfoList = new LinkedList<>();
+
+        for (Team team : teams) {
+            TeamReport teamReport = getTeamReport(team, actions);
+            retorno.add(teamReport);
+        }
+
+        for (Match match : matches) {
+            if (!matchInfoList.contains(match)) {
+                MatchInfo info = new MatchInfo(match);
+                matchInfoList.add(info);
+            }
+        }
+
+        Report report = new Report();
+        LeagueInfo leagueInfo = new LeagueInfo();
+        leagueInfo.setName(league.getName());
+        leagueInfo.setDate(league.getDate());
+        report.setMatches(matchInfoList);
+        report.setLeague(leagueInfo);
+        report.setTeams(retorno);
+        reports.add(report);
+
         return reports;
     }
 

@@ -158,14 +158,14 @@ module.controller("leaguesCtrl", function ($scope, $http) {
 });
 module.controller("leagueCtrl", function ($scope, $http, $stateParams) {
 
-    var url = urlLeagues + '/' + $stateParams.leagueId;
+    var url = urlDashboard + '/' + $stateParams.leagueId;
 
     $http({
         method: 'GET',
         url: url
     }).
     success(function(data) {
-        $scope.league = data;
+        $scope.report = data[0];
     }).
     error(function(status) {
         $scope.errorMsgLeague = status.error;
