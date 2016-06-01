@@ -17,15 +17,17 @@
 </div>
 <!-- /.row -->
 
-<div class="row">
-    <div class="col-lg-12">
-        <div ng-messages="userErrors.$error" role="alert">
-        <div ng-message="deleteUserError" ng-show="userErrors.$error.deleteUserError" class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <i class="fa fa-info-circle"></i> <strong>Error: </strong> It wasn't possible to delete the user!
-        </div>
+<div ng-controller="usersCtrl">
+
+    <div ng-show="errorMsgUsers" class="row">
+        <div class="col-lg-12">
+            <div ng-if="errorMsgUsers" class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <i class="fa fa-info-circle"></i> <strong>Error:</strong> {{errorMsgUsers}}
             </div>
+        </div>
     </div>
+
 </div>
 <!-- /.row -->
 

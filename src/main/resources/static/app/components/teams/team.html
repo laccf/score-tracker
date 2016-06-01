@@ -1,14 +1,14 @@
-
 <!-- Page Heading -->
 <div class="row" ng-controller="teamCtrl">
 
     <div class="col-lg-12">
         <h1 class="page-header">
-            Team <small>{{team.name}}</small>
+            Team
+            <small>{{team.name}}</small>
         </h1>
         <ol class="breadcrumb">
             <li>
-                <i class="fa fa-flag"></i>  <a ui-sref="teams">Teams</a>
+                <i class="fa fa-flag"></i> <a ui-sref="teams">Teams</a>
             </li>
             <li class="active">
                 <i class="fa fa-flag"></i> {{team.name}}
@@ -16,6 +16,22 @@
         </ol>
     </div>
 
+</div>
+
+<div ng-controller="teamCtrl">
+
+    <div ng-show="errorMsgTeam" class="row">
+        <div class="col-lg-12">
+            <div ng-if="errorMsgTeam" class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <i class="fa fa-info-circle"></i> <strong>Error:</strong> {{errorMsgTeam}}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row" ng-controller="teamCtrl">
     <div class="col-lg-12">
 
 

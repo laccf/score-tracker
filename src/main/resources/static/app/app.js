@@ -18,7 +18,6 @@ var urlAllActionTypes = host + '/rest/actions/types';
 var urlActions = host + '/rest/actions';
 var urlPlayerByTeam = host + '/players/team?id=';
 
-// Declare app level module which depends on views, and components
 var module = angular.module('myApp', ['ui.router','ngMessages']);
 
 /* Dashboard Controller */
@@ -53,7 +52,8 @@ module.controller("leaguesCtrl", function ($scope, $http) {
         $scope.leagues = data;
     }).error(function(status) {
 
-        /* Lançar mensagem de erro*/
+        $scope.errorMsgLeagues = status.error;
+        
         console.log($scope);
         console.log(status);
 
@@ -65,8 +65,7 @@ module.controller("leaguesCtrl", function ($scope, $http) {
     }).success(function(data) {
         $scope.usersToSelect.userAvailableOptions = data;
     }).error(function(status) {
-
-        /* Lançar mensagem de erro*/
+        $scope.errorMsgLeagues = status.error;
         console.log($scope);
         console.log(status);
     });
@@ -93,7 +92,7 @@ module.controller("leaguesCtrl", function ($scope, $http) {
         }).
         error(function(status) {
 
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgLeagues = status.error;
             console.log($scope);
             console.log(status);
 
@@ -112,9 +111,9 @@ module.controller("leaguesCtrl", function ($scope, $http) {
         success(function() {
             $scope.leagues.splice(index, 1);
 
-        }).error(function (data, status, headers, config) {
+        }).error(function (data, status) {
 
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgLeagues = status.error;
             console.log($scope);
             console.log(status);
         });
@@ -145,7 +144,7 @@ module.controller("leaguesCtrl", function ($scope, $http) {
         }).
         error(function(status) {
             $scope.reset();
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgLeagues = status.error;
             console.log($scope);
             console.log(status);
 
@@ -169,7 +168,7 @@ module.controller("leagueCtrl", function ($scope, $http, $stateParams) {
         $scope.league = data;
     }).
     error(function(status) {
-        //your code when fails
+        $scope.errorMsgLeague = status.error;
     });
 });
 
@@ -192,7 +191,7 @@ module.controller("teamsCtrl", function ($scope, $http) {
         $scope.usersToSelect.userAvailableOptions = data;
     }).error(function(status) {
 
-        /* Lançar mensagem de erro*/
+        $scope.errorMsgTeams = status.error;
         console.log($scope);
         console.log(status);
     });
@@ -203,7 +202,7 @@ module.controller("teamsCtrl", function ($scope, $http) {
         $scope.leaguesToSelect.leagueAvailableOptions = data;
     }).error(function(status) {
 
-        /* Lançar mensagem de erro*/
+        $scope.errorMsgTeams = status.error;
         console.log($scope);
         console.log(status);
     });
@@ -215,7 +214,7 @@ module.controller("teamsCtrl", function ($scope, $http) {
         $scope.teams = data;
     }).error(function(status) {
 
-        /* Lançar mensagem de erro*/
+        $scope.errorMsgTeams = status.error;
         console.log($scope);
         console.log(status);
 
@@ -234,8 +233,6 @@ module.controller("teamsCtrl", function ($scope, $http) {
             logo: $scope.teamLogo
         };
 
-        /**/
-
         $http({
             method: 'POST',
             url: urlTeams,
@@ -246,7 +243,7 @@ module.controller("teamsCtrl", function ($scope, $http) {
         }).
         error(function(status) {
 
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgTeams = status.error;
             console.log($scope);
             console.log(status);
 
@@ -265,14 +262,11 @@ module.controller("teamsCtrl", function ($scope, $http) {
         success(function() {
             $scope.teams.splice(index, 1);
 
-        }).error(function (data, status, headers, config) {
+        }).error(function (data, status) {
 
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgTeams = status.error;
             console.log($scope);
             console.log(status);
-            console.log(data);
-            console.log(headers);
-            console.log(config);
         });
     };
 
@@ -301,7 +295,7 @@ module.controller("teamsCtrl", function ($scope, $http) {
         }).
         error(function(status) {
             $scope.reset();
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgTeams = status.error;
             console.log($scope);
             console.log(status);
 
@@ -324,7 +318,7 @@ module.controller("teamCtrl", function ($scope, $http, $stateParams) {
         $scope.team = data;
     }).
     error(function(status) {
-        //your code when fails
+        $scope.errorMsgTeam = status.error;
         console.log(status);
     });
 });
@@ -344,7 +338,7 @@ module.controller("playersCtrl", function ($scope, $http) {
         $scope.players = data;
     }).error(function(status) {
 
-        /* Lançar mensagem de erro*/
+        $scope.errorMsgPlayers = status.error;
         console.log($scope);
         console.log(status);
 
@@ -357,7 +351,7 @@ module.controller("playersCtrl", function ($scope, $http) {
         $scope.teamsToSelect.teamAvailableOptions = data;
     }).error(function(status) {
 
-        /* Lançar mensagem de erro*/
+        $scope.errorMsgPlayers = status.error;
         console.log($scope);
         console.log(status);
     });
@@ -385,7 +379,7 @@ module.controller("playersCtrl", function ($scope, $http) {
         }).
         error(function(status) {
 
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgPlayers = status.error;
             console.log($scope);
             console.log(status);
 
@@ -404,14 +398,11 @@ module.controller("playersCtrl", function ($scope, $http) {
         success(function() {
             $scope.players.splice(index, 1);
 
-        }).error(function (data, status, headers, config) {
+        }).error(function (data, status) {
 
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgPlayers = status.error;
             console.log($scope);
             console.log(status);
-            console.log(data);
-            console.log(headers);
-            console.log(config);
         });
     };
 
@@ -440,7 +431,7 @@ module.controller("playersCtrl", function ($scope, $http) {
         }).
         error(function(status) {
             $scope.reset();
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgPlayers = status.error;
             console.log($scope);
             console.log(status);
 
@@ -465,7 +456,8 @@ module.controller("playerCtrl", function ($scope, $http, $stateParams) {
         $scope.player = data;
     }).
     error(function(status) {
-        //your code when fails
+        $scope.errorMsgPlayer = status.error;
+        console.log(status);
     });
 
 });
@@ -480,7 +472,7 @@ module.controller("matchesCtrl", function ($scope, $http) {
         $scope.matches = data;
     }).error(function(status) {
 
-        /* Lançar mensagem de erro*/
+        $scope.errorMsgMatches = status.error;
         console.log($scope);
         console.log(status);
 
@@ -510,7 +502,7 @@ module.controller("matchesCtrl", function ($scope, $http) {
         }).
         error(function(status) {
 
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgMatches = status.error;
             console.log($scope);
             console.log(status);
 
@@ -531,7 +523,7 @@ module.controller("matchesCtrl", function ($scope, $http) {
 
         }).error(function (status) {
 
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgMatches = status.error;
             console.log($scope);
             console.log(status);
         });
@@ -562,7 +554,7 @@ module.controller("matchesCtrl", function ($scope, $http) {
         }).
         error(function(status) {
             $scope.reset();
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgMatches = status.error;
             console.log($scope);
             console.log(status);
 
@@ -599,7 +591,7 @@ module.controller("matchCtrl", function ($scope, $http, $stateParams) {
         $scope.match = data;
     }).
     error(function(status) {
-        //your code when fails
+        $scope.errorMsgMatch = status.error;
     });
 
     $http({
@@ -609,7 +601,7 @@ module.controller("matchCtrl", function ($scope, $http, $stateParams) {
         $scope.actionsToSelect.actionAvailableOptions = data;
     }).error(function(status) {
 
-        /* Lançar mensagem de erro*/
+        $scope.errorMsgMatch = status.error;
         console.log($scope);
         console.log(status);
     });
@@ -621,7 +613,7 @@ module.controller("matchCtrl", function ($scope, $http, $stateParams) {
         $scope.playersToSelect.playerAvailableOptions = data;
     }).error(function(status) {
 
-        /* Lançar mensagem de erro*/
+        $scope.errorMsgMatch = status.error;
         console.log($scope);
         console.log(status);
     });
@@ -670,7 +662,7 @@ module.controller("matchCtrl", function ($scope, $http, $stateParams) {
             $scope.match.actions.push(addedAction);
         }).
         error(function(status) {
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgMatch = status.error;
             console.log($scope);
             console.log(status);
 
@@ -692,7 +684,7 @@ module.controller("matchCtrl", function ($scope, $http, $stateParams) {
 
         }).error(function (status) {
 
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgMatch = status.error;
             console.log($scope);
             console.log(status);
         });
@@ -716,13 +708,11 @@ module.controller("usersCtrl", function ($scope, $http) {
         $scope.rolesToSelect.roleAvailableOptions = data;
     }).error(function(status) {
 
-        /* Lançar mensagem de erro*/
+        $scope.errorMsgUsers = status.error;
         console.log($scope);
         console.log(status);
     });
-    
-    
-    
+
     $http({
         method: 'GET',
         url: urlUsers,
@@ -732,7 +722,7 @@ module.controller("usersCtrl", function ($scope, $http) {
     }).
     error(function(status) {
 
-        /* Lançar mensagem de erro*/
+        $scope.errorMsgUsers = status.error;
         console.log($scope);
         console.log(status);
 
@@ -760,7 +750,7 @@ module.controller("usersCtrl", function ($scope, $http) {
         }).
         error(function(status) {
 
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgUsers = status.error;
             console.log($scope);
             console.log(status);
 
@@ -778,12 +768,11 @@ module.controller("usersCtrl", function ($scope, $http) {
         success(function() {
             $scope.users.splice(index, 1);
             
-        }).error(function (data, status, headers, config) {
+        }).error(function (data, status) {
 
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgUsers = status.error;
             console.log($scope);
             console.log(status);
-            console.log(config);
         });
     };
 
@@ -811,7 +800,7 @@ module.controller("usersCtrl", function ($scope, $http) {
             $scope.reset();
         }).
         error(function(status) {
-            /* Lançar mensagem de erro*/
+            $scope.errorMsgUsers = status.error;
             $scope.reset();
             console.log($scope);
             console.log(status);
@@ -835,7 +824,7 @@ module.controller("userCtrl", function ($scope, $http, $stateParams) {
         $scope.user = data;
     }).
     error(function(status) {
-        //your code when fails
+        $scope.errorMsgUser = status.error;
     });
 });
 
@@ -863,8 +852,8 @@ module.controller("profileCtrl", function ($scope, $http) {
 
         $http.put(user).success(function(){
             $scope.user.push(user);
-        }).onerror(function(){
-
+        }).onerror(function(status){
+            $scope.errorMsgProfile = status.error;
         });
 
     };
@@ -894,6 +883,7 @@ module.controller("loginCtrl", function ($scope, $http, $state) {
             $state.go('dashboard');
         }).
         error(function(status) {
+            $scope.errorMsgLogin = status.error;
             console.log($scope);
             console.log(status);
         });
@@ -915,6 +905,7 @@ module.controller("loginCtrl", function ($scope, $http, $state) {
             $state.go('login');
         }).
         error(function(status) {
+            $scope.errorMsgLogin = status.error;
             console.log($scope);
             console.log(status);
         });

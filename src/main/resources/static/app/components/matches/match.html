@@ -16,6 +16,24 @@
         </ol>
     </div>
 
+    </div>
+
+<div ng-controller="matchCtrl">
+
+    <div ng-show="errorMsgMatch" class="row">
+        <div class="col-lg-12">
+            <div ng-if="errorMsgMatch" class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <i class="fa fa-info-circle"></i> <strong>Error:</strong> {{errorMsgMatch}}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row" ng-controller="matchCtrl">
+
     <div class="col-lg-12">
 
         <div class="col-lg-2"/>
