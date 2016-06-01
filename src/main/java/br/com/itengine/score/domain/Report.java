@@ -2,6 +2,7 @@ package br.com.itengine.score.domain;
 
 import br.com.itengine.score.entity.League;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
 public class Report {
     LeagueInfo league;
     List<TeamReport> teams;
+    List<MatchInfo> matches;
 
     public Report() {
         teams = new LinkedList<>();
@@ -30,5 +32,16 @@ public class Report {
 
     public void setTeams(List<TeamReport> teams) {
         this.teams = teams;
+    }
+
+    public void setMatches(List<MatchInfo> matches) {
+        this.matches = matches;
+    }
+
+    public List<MatchInfo> getMatches() {
+        if(null == matches){
+            matches = new LinkedList<>();
+        }
+        return matches;
     }
 }

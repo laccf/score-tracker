@@ -48,104 +48,162 @@ public class Application {
         return (args) -> {
 
             new File(ROOT).mkdir();
+
+            /* Create Users (ROLE_ROOT) */
             User userRoot = new User();
-            User userLeague = new User();
-            User userLeagueTwo = new User();
-            User userTeam = new User();
-            User userDelegate = new User();
-            User userDelegateTwo = new User();
-
-
             userRoot.setRole(Role.ROLE_ROOT.toString());
-            userRoot.setUsername("userroot");
+            userRoot.setUsername("root1");
             userRoot.setPassword("pass");
-            userRoot.setName("Root");
-            userRoot.setEmail("email@root.com");
+            userRoot.setName("Root 1");
+            userRoot.setEmail("email@root1.com");
             userRoot.setPhone("33333331");
 
+            User userRoot2 = new User();
+            userRoot2.setRole(Role.ROLE_ROOT.toString());
+            userRoot2.setUsername("root2");
+            userRoot2.setPassword("pass");
+            userRoot2.setName("Root 2");
+            userRoot2.setEmail("email@root2.com");
+            userRoot2.setPhone("33333332");
+
+            /* Create Users (ROLE_LEAGUE) */
+            User userLeague = new User();
             userLeague.setRole(Role.ROLE_LEAGUE.toString());
-            userLeague.setUsername("userleague");
+            userLeague.setUsername("league1");
             userLeague.setPassword("pass");
-            userLeague.setName("League Admin");
-            userLeague.setEmail("email@league.com");
-            userLeague.setPhone("33333332");
+            userLeague.setName("League 1");
+            userLeague.setEmail("email@league1.com");
+            userLeague.setPhone("33333331");
 
-            userLeagueTwo.setRole(Role.ROLE_LEAGUE.toString());
-            userLeagueTwo.setUsername("userleaguetwo");
-            userLeagueTwo.setPassword("pass");
-            userLeagueTwo.setName("League Admin Two");
-            userLeagueTwo.setEmail("emailTwo@league.com");
-            userLeagueTwo.setPhone("33333332");
+            User userLeague2 = new User();
+            userLeague2.setRole(Role.ROLE_LEAGUE.toString());
+            userLeague2.setUsername("league2");
+            userLeague2.setPassword("pass");
+            userLeague2.setName("League 2");
+            userLeague2.setEmail("emailTwo@league2.com");
+            userLeague2.setPhone("33333332");
 
+            /* Create Users (ROLE_TEAM) */
+            User userTeam = new User();
             userTeam.setRole(Role.ROLE_TEAM.toString());
-            userTeam.setUsername("userteam");
+            userTeam.setUsername("team1");
             userTeam.setPassword("pass");
-            userTeam.setName("Team Admin");
-            userTeam.setEmail("email@team.com");
-            userTeam.setPhone("33333333");
+            userTeam.setName("Team 1");
+            userTeam.setEmail("email@team1.com");
+            userTeam.setPhone("33333331");
 
+            User userTeam2 = new User();
+            userTeam2.setRole(Role.ROLE_TEAM.toString());
+            userTeam2.setUsername("team2");
+            userTeam2.setPassword("pass");
+            userTeam2.setName("Team 2");
+            userTeam2.setEmail("email@team2.com");
+            userTeam2.setPhone("33333332");
+
+            /* Create Users (ROLE_DELEGATE) */
+            User userDelegate = new User();
             userDelegate.setRole(Role.ROLE_DELEGATE.toString());
-            userDelegate.setUsername("userdelegate");
+            userDelegate.setUsername("delegate1");
             userDelegate.setPassword("pass");
-            userDelegate.setName("Delegate User");
+            userDelegate.setName("Delegate 1");
             userDelegate.setEmail("email@delegate1.com");
-            userDelegate.setPhone("33333334");
+            userDelegate.setPhone("33333331");
 
-            userDelegateTwo.setRole(Role.ROLE_DELEGATE.toString());
-            userDelegateTwo.setUsername("userdelegatetwo");
-            userDelegateTwo.setPassword("pass");
-            userDelegateTwo.setName("Delegate User 2");
-            userDelegateTwo.setEmail("email@delegate2.com");
-            userDelegateTwo.setPhone("3333335");
+            User userDelegate2 = new User();
+            userDelegate2.setRole(Role.ROLE_DELEGATE.toString());
+            userDelegate2.setUsername("delegate2");
+            userDelegate2.setPassword("pass");
+            userDelegate2.setName("Delegate 2");
+            userDelegate2.setEmail("email@delegate2.com");
+            userDelegate2.setPhone("3333332");
 
+            /* Persist Users */
             userRoot = userRepository.save(userRoot);
+            userRoot2 = userRepository.save(userRoot2);
             userLeague = userRepository.save(userLeague);
-            userLeagueTwo = userRepository.save(userLeagueTwo);
+            userLeague2 = userRepository.save(userLeague2);
             userTeam = userRepository.save(userTeam);
+            userTeam2 = userRepository.save(userTeam2);
             userDelegate = userRepository.save(userDelegate);
-            userDelegateTwo = userRepository.save(userDelegateTwo);
+            userDelegate2 = userRepository.save(userDelegate2);
 
-
-            League leaguePernabucano = new League();
-            leaguePernabucano.setName("Pernambucano's League");
-            leaguePernabucano.setDate(2004);
-            leaguePernabucano.setLeagueAdmin(userLeague);
-            leaguePernabucano = leagueRepository.save(leaguePernabucano);
+            /* Create Leagues */
+            League leaguePernambucano = new League();
+            leaguePernambucano.setName("Pernambucano's League");
+            leaguePernambucano.setDate(2004);
+            leaguePernambucano.setLeagueAdmin(userLeague);
+            leaguePernambucano = leagueRepository.save(leaguePernambucano);
 
             League leagueParaibano = new League();
             leagueParaibano.setName("Paraibano's League");
             leagueParaibano.setDate(2016);
-            leagueParaibano.setLeagueAdmin(userLeague);
+            leagueParaibano.setLeagueAdmin(userLeague2);
             leagueParaibano = leagueRepository.save(leagueParaibano);
 
             League leagueBaiano = new League();
             leagueBaiano.setName("Baiano's League");
             leagueBaiano.setDate(2017);
-            leagueBaiano.setLeagueAdmin(userLeagueTwo);
+            leagueBaiano.setLeagueAdmin(userLeague2);
             leagueBaiano = leagueRepository.save(leagueBaiano);
 
+            /* Create Teamss (Pernambucano's) */
             Team teamSport = new Team();
             teamSport.setName("Sport Club");
-            teamSport.setLeague(leaguePernabucano);
+            teamSport.setLeague(leaguePernambucano);
             teamSport.setTeamAdmin(userTeam);
             teamSport.setAddress("Ilha do Retiro");
 
             Team teamSanta = new Team();
             teamSanta.setName("Santa Cruz");
-            teamSanta.setLeague(leaguePernabucano);
+            teamSanta.setLeague(leaguePernambucano);
             teamSanta.setTeamAdmin(userTeam);
             teamSanta.setAddress("Arruda");
 
             Team teamNautico = new Team();
             teamNautico.setName("Nautico");
-            teamNautico.setLeague(leaguePernabucano);
+            teamNautico.setLeague(leaguePernambucano);
             teamNautico.setTeamAdmin(userTeam);
             teamNautico.setAddress("Aflitos");
 
+            /* Create Teamss (Paraibano's) */
+            Team teamTreze = new Team();
+            teamTreze.setName("Treze");
+            teamTreze.setLeague(leagueParaibano);
+            teamTreze.setTeamAdmin(userTeam2);
+            teamTreze.setAddress("PV");
+
+            Team teamCampinense = new Team();
+            teamCampinense.setName("Campinense");
+            teamCampinense.setLeague(leagueParaibano);
+            teamCampinense.setTeamAdmin(userTeam2);
+            teamCampinense.setAddress("Toca da Raposa");
+
+            Team teamNacional = new Team();
+            teamNacional.setName("Nacional");
+            teamNacional.setLeague(leagueParaibano);
+            teamNacional.setTeamAdmin(userTeam2);
+            teamNacional.setAddress("Patos");
+
+            Team teamBotafogo = new Team();
+            teamBotafogo.setName("Botafogo");
+            teamBotafogo.setLeague(leagueParaibano);
+            teamBotafogo.setTeamAdmin(userTeam2);
+            teamBotafogo.setAddress("João Pessoa");
+
+            /* Create Teamss (Baiano's) */
+            /*
+            * Bahia
+            * Vitoria
+            * */
+
+            /* Persist Teams */
             teamSport = teamRepository.save(teamSport);
             teamSanta = teamRepository.save(teamSanta);
             teamNautico = teamRepository.save(teamNautico);
-
+            teamTreze = teamRepository.save(teamTreze);
+            teamCampinense = teamRepository.save(teamCampinense);
+            teamNacional = teamRepository.save(teamNacional);
+            teamBotafogo = teamRepository.save(teamBotafogo);
 
             String[] sportNames = {"Durval Silva", "Sandro Goiano", "Alexandro Beti", "Tulio Vinicius", "Thiago Almeida"};
             String[] santaNames = {"Luiz Antonio", "Anderson Pablo", "Romeryto Lira", "Gabi Alves", "Pedro Hyvo", "Erick Costa"};
@@ -211,25 +269,25 @@ public class Application {
             matchNauticoSport.setTeamHome(teamNautico);
             matchNauticoSport.setTeamVisitor(teamSport);
             matchNauticoSport.setDelegate(userDelegate);
-            matchNauticoSport.setLeague(leaguePernabucano);
+            matchNauticoSport.setLeague(leaguePernambucano);
             matchNauticoSport.setDateOfMatch(date);
 
             matchNauticoSanta.setTeamHome(teamNautico);
             matchNauticoSanta.setTeamVisitor(teamSanta);
             matchNauticoSanta.setDelegate(userDelegate);
-            matchNauticoSanta.setLeague(leaguePernabucano);
+            matchNauticoSanta.setLeague(leaguePernambucano);
             matchNauticoSanta.setDateOfMatch(date);
 
             matchSportSanta.setTeamHome(teamSport);
             matchSportSanta.setTeamVisitor(teamSanta);
-            matchSportSanta.setDelegate(userDelegateTwo);
-            matchSportSanta.setLeague(leaguePernabucano);
+            matchSportSanta.setDelegate(userDelegate2);
+            matchSportSanta.setLeague(leaguePernambucano);
             matchSportSanta.setDateOfMatch(dateTwo);
 
             matchSportNautico.setTeamHome(teamSport);
             matchSportNautico.setTeamVisitor(teamNautico);
-            matchSportNautico.setDelegate(userDelegateTwo);
-            matchSportNautico.setLeague(leaguePernabucano);
+            matchSportNautico.setDelegate(userDelegate2);
+            matchSportNautico.setLeague(leaguePernambucano);
             matchSportNautico.setDateOfMatch(dateTwo);
             matchSportNautico.setIsPlayed(true);
 

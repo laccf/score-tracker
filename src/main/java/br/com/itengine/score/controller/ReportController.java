@@ -1,9 +1,6 @@
 package br.com.itengine.score.controller;
 
-import br.com.itengine.score.domain.LeagueInfo;
-import br.com.itengine.score.domain.Report;
-import br.com.itengine.score.domain.TeamInfo;
-import br.com.itengine.score.domain.TeamReport;
+import br.com.itengine.score.domain.*;
 import br.com.itengine.score.entity.*;
 import br.com.itengine.score.repository.LeagueRepository;
 import br.com.itengine.score.repository.MatchRepository;
@@ -45,16 +42,29 @@ public class ReportController {
 
         for (League league: leagues) {
             List<Action> actions = getActions(matchRepository.findByLeague(league));
-            List<Team> teams = teamRepository.findAll();
+            List<Team> teams = teamRepository.findByLeague(league);
+            List<Match> matches = matchRepository.findByLeague(league);
+
             List<TeamReport> retorno = new LinkedList<>();
+            List<MatchInfo> matchInfoList = new LinkedList<>();
 
             for (Team team: teams ) {
-                retorno.add(getTeamReport(team,actions));
+                TeamReport teamReport = getTeamReport(team,actions);
+                retorno.add(teamReport);
             }
+
+            for (Match match: matches) {
+                if(!matchInfoList.contains(match)){
+                    MatchInfo info = new MatchInfo(match);
+                    matchInfoList.add(info);
+                }
+            }
+
             Report report = new Report();
             LeagueInfo leagueInfo = new LeagueInfo();
             leagueInfo.setName(league.getName());
             leagueInfo.setDate(league.getDate());
+            report.setMatches(matchInfoList);
             report.setLeague(leagueInfo);
             report.setTeams(retorno);
             reports.add(report);
@@ -71,22 +81,24 @@ public class ReportController {
     }
 
     private TeamReport getTeamReport(Team team, List<Action> actions){
+
+        TeamInfo teamInfo = new TeamInfo(team);
         TeamReport teamReport = new TeamReport();
-        TeamInfo teamInfo = new TeamInfo();
-        teamInfo.setId(team.getId());
-        teamInfo.setName(team.getName());
         teamReport.setTeam(teamInfo);
+
         Map<ActionType, Integer> map = new HashMap<>();
         map.put(ActionType.ASIST,0);
         map.put(ActionType.FAUL,0);
         map.put(ActionType.GOAL,0);
         map.put(ActionType.SUSPENSION,0);
+
         for (Action action: actions){
             if(teamRepository.findByPlayersContaining(action.getPlayer()).getId() == team.getId()){
                 map.put(action.getActionType(),1+map.get(action.getActionType()));
             }
         }
         teamReport.setActions(map);
+
         return teamReport;
     }
 

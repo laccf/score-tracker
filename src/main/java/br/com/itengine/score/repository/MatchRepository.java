@@ -17,5 +17,6 @@ public interface MatchRepository extends CrudRepository<Match, Integer> {
     List<Match> findByLeague(League league);
     List<Match> findByTeamVisitorOrTeamHome(Team teamHome,Team teamVisitor);
     Match findByActionsContaining(Action player);
+    List<Match> findByTeamHome(Team team);
 
 }

@@ -32,7 +32,7 @@ module.controller("dashboardCtrl", function ($scope, $http) {
         method: 'GET',
         url: urlDashboard,
     }).success(function(data) {
-        $scope.leagues = data;
+        $scope.reports = data;
     }).error(function(status) {
 
         /* Lançar mensagem de erro*/
