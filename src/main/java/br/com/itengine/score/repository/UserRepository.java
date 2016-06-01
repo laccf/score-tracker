@@ -14,4 +14,5 @@ public interface UserRepository extends CrudRepository<User,Integer> {
     User findById(Integer id);
     List<User> findByRole(String role);
     User findByUsername(String username);
+    List<User> findByUsernameNotContainingIgnoreCase(String username);
 }

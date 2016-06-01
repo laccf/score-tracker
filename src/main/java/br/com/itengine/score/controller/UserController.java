@@ -32,8 +32,9 @@ public class UserController {
     UserRepository userRepository;
 
     @RequestMapping(value="",method = RequestMethod.GET)
-    public ResponseEntity<List<User>> findAll() {
-        return new ResponseEntity<List<User>>(userRepository.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<User>> findAll(Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+        return new ResponseEntity<List<User>>(userRepository.findByUsernameNotContainingIgnoreCase(user.getUsername()), HttpStatus.OK);
     }
 
 
@@ -65,7 +66,11 @@ public class UserController {
     }
 
     @RequestMapping(value="",method = RequestMethod.PUT)
-    public ResponseEntity<User> update(@RequestBody User user) {
+    public ResponseEntity<User> update(@RequestBody User user,Principal principal) {
+        User userprincipal = userRepository.findByUsername(principal.getName());
+        if(userprincipal.getUsername().equalsIgnoreCase(user.getName()) || userprincipal.getId() == user.getId() ){
+            return new ResponseEntity<User>(user, HttpStatus.CONFLICT);
+        }
         return new ResponseEntity<User>(userRepository.save(user), HttpStatus.OK);
     }
 
