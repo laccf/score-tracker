@@ -36,10 +36,10 @@
 
                     <tr ng-repeat="teamReport in report.teams">
                         <td><a ui-sref="team({ teamId: teamReport.team.id})">{{ teamReport.team.name }}</a></td>
-                        <td>{{teamReport.actions.goal || 0}}</td>
-                        <td>{{teamReport.actions.assist || 0}}</td>
-                        <td>{{teamReport.actions.faul || 0}}</td>
-                        <td>{{teamReport.actions.suspension || 0}}</td>
+                        <td>{{teamReport.actions.GOAL || 0}}</td>
+                        <td>{{teamReport.actions.ASSIST || 0}}</td>
+                        <td>{{teamReport.actions.FAUL || 0}}</td>
+                        <td>{{teamReport.actions.SUSPENSION || 0}}</td>
                     </tr>
 
                     </tbody>
