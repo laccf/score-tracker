@@ -7,7 +7,7 @@ public enum ActionType {
 
     GOAL("GOAL"),
     FAUL("FAUL"),
-    ASIST("ASIST"),
+    ASSIST("ASSIST"),
     SUSPENSION("SUSPENSION");
 
     private final String label;

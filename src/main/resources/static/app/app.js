@@ -13,17 +13,12 @@ var urlUserTeam = host + '/users/role?role=ROLE_TEAM';
 var urlLeagueTeam = host + '/rest/leagues';
 var urlGetUsersLeague = host + '/rest/users/role?role=ROLE_LEAGUE';
 var urlTeams = host + '/rest/teams';
-var urlAllRoles = host + '/rest/users/roles'
+var urlAllRoles = host + '/rest/users/roles';
+var urlAllActions = host + '/rest/actions';
+var urlAllActionTypes = host + '/rest/actions/types';
 
 // Declare app level module which depends on views, and components
 var module = angular.module('myApp', ['ui.router','ngMessages']);
-
-module.config(['$httpProvider', function($httpProvider) {
-    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-    $httpProvider.defaults.headers.post = {};
-    $httpProvider.defaults.headers.put = {};
-    $httpProvider.defaults.headers.patch = {};
-}]);
 
 /* Dashboard Controller */
 module.controller("dashboardCtrl", function ($scope, $http) {
@@ -586,6 +581,16 @@ module.controller("matchCtrl", function ($scope, $http, $stateParams) {
 
     var url = urlMatches + '/' + $stateParams.matchId;
 
+    $scope.actionsToSelect = {
+        actionSelected: null,
+        actionAvailableOptions: null
+    };
+
+    $scope.playersToSelect = {
+        playerSelected: null,
+        playerAvailableOptions: null
+    };
+    
     $http({
         method: 'GET',
         url: url
@@ -595,6 +600,30 @@ module.controller("matchCtrl", function ($scope, $http, $stateParams) {
     }).
     error(function(status) {
         //your code when fails
+    });
+
+    $http({
+        method: 'GET',
+        url: urlAllActionTypes,
+    }).success(function(data) {
+        $scope.actionsToSelect.actionAvailableOptions = data;
+    }).error(function(status) {
+
+        /* Lançar mensagem de erro*/
+        console.log($scope);
+        console.log(status);
+    });
+
+    $http({
+        method: 'GET',
+        url: urlPlayers,
+    }).success(function(data) {
+        $scope.playersToSelect.playerAvailableOptions = data;
+    }).error(function(status) {
+
+        /* Lançar mensagem de erro*/
+        console.log($scope);
+        console.log(status);
     });
 
 });

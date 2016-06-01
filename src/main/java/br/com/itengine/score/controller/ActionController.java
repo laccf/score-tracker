@@ -1,6 +1,7 @@
 package br.com.itengine.score.controller;
 
 import br.com.itengine.score.entity.Action;
+import br.com.itengine.score.entity.ActionType;
 import br.com.itengine.score.entity.Match;
 import br.com.itengine.score.repository.ActionRepository;
 import br.com.itengine.score.repository.MatchRepository;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -30,6 +32,18 @@ public class ActionController {
     public ResponseEntity<List<Action>> findAll() {
         return new ResponseEntity<List<Action>>(actionRepository.findAll(), HttpStatus.OK);
     }
+
+    @RequestMapping(value="/types",method = RequestMethod.GET)
+    public ResponseEntity<List<ActionType>> getActionTypes() {
+        List<ActionType> actionTypes = new LinkedList<>();
+        actionTypes.add(ActionType.GOAL);
+        actionTypes.add(ActionType.ASSIST);
+        actionTypes.add(ActionType.FAUL);
+        actionTypes.add(ActionType.SUSPENSION);
+
+        return new ResponseEntity<List<ActionType>>(actionTypes, HttpStatus.OK);
+    }
+
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Action> findById(@PathVariable("id") Integer id) {

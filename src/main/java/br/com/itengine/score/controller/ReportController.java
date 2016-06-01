@@ -6,10 +6,6 @@ import br.com.itengine.score.repository.LeagueRepository;
 import br.com.itengine.score.repository.MatchRepository;
 import br.com.itengine.score.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +14,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Created by thiag.
@@ -87,7 +82,7 @@ public class ReportController {
         teamReport.setTeam(teamInfo);
 
         Map<ActionType, Integer> map = new HashMap<>();
-        map.put(ActionType.ASIST,0);
+        map.put(ActionType.ASSIST,0);
         map.put(ActionType.FAUL,0);
         map.put(ActionType.GOAL,0);
         map.put(ActionType.SUSPENSION,0);
